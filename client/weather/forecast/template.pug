@@ -1,0 +1,14 @@
+.card-block.text-center
+  h3.card-title {{ $ctrl.Date | date: 'EEEE' }}
+  h6.card-title {{ $ctrl.Date | date: 'shortDate' }}
+  weather-icon(day="$ctrl.Day")
+  p.card-text {{ $ctrl.Day.IconPhrase }}
+  .row.text-right
+    .col Low
+    .col {{ $ctrl.Low }} &deg;{{ $ctrl.Unit }}
+  .row.text-right
+    .col High
+    .col {{ $ctrl.High }} &deg;{{ $ctrl.Unit }}
+  .row.text-right
+    .col Percipitation
+    .col {{ $ctrl.Day.PrecipitationProbability }} %

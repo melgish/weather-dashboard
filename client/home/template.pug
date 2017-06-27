@@ -1,0 +1,31 @@
+.container-fluid
+  .row
+    .col
+      .card-group
+        clock.card
+        location.card.card-inverse.card-success(
+            location="$ctrl.location"
+        )
+        wind.card.card-inverse.card-info(
+          wind="$ctrl.conditions.Wind",
+          gusts="$ctrl.conditions.WindGust"
+        )
+  .row
+    .col
+      .card-group
+        pressure.card.card-inverse.card-warning(
+          pressure="$ctrl.conditions.Pressure"
+        )
+        humidity.card.card-inverse.card-danger(
+          humidity="$ctrl.conditions.RelativeHumidity"
+        )
+        temperature.card.card-inverse.card-primary(
+          temperature="$ctrl.conditions.Temperature"
+        )
+  .row
+    .col
+      .card-group
+        forecast.card(
+          ng-repeat="f in $ctrl.forecast.DailyForecasts",
+          forecast="f"
+        )
