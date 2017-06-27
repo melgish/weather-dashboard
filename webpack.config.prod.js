@@ -35,13 +35,6 @@ export default {
                   },
                 }],
               ],
-              env: {
-                test: {
-                  plugins: [
-                    ['istanbul', { exclude: ['src/**/*.spec.js'] }],
-                  ],
-                },
-              },
             },
           },
         ],
