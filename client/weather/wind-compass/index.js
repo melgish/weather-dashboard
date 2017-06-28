@@ -2,7 +2,7 @@ import angular from 'angular';
 import template from './template.pug';
 import './index.scss';
 
-class WindCompassController {
+export class WindCompassController {
   constructor($log) {
     'ngInject';
     this.$log = $log;
@@ -23,9 +23,6 @@ export default angular
     controller: WindCompassController,
     bindings: {
       wind: '<',
-      gusts: '<',
-      w: '@',
-      h: '@',
     }
   })
   .name;
