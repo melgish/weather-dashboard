@@ -6,6 +6,9 @@ module.exports = function(config) {
     basePath: '',
     frameworks: ['jasmine'],
     files: [
+      // include main for coverage
+      'client/index.js',
+      // include spec
       'client/**/*.spec.js'
     ],
     exclude: [
@@ -23,12 +26,17 @@ module.exports = function(config) {
         { type: 'html', subdir: 'www' },
       ],
     },
+    jsdomLauncher: {
+      jsdom: {
+        userAgent: 'jsdom',
+      },
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_WARN,
     autoWatch: true,
-    browsers: ['jsdom'],
-    singleRun: true,
+    // browsers: ['jsdom'],
+    // singleRun: true,
     concurrency: Infinity,
     webpack: require('./webpack.config.test').default,
     webpackMiddleware: {

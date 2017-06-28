@@ -1,7 +1,9 @@
 import path from 'path';
+
 export default {
   devtool: 'inline-source-map',
   entry: {
+    // vendor: './client/vendor',
     main: './client/index',
   },
   module: {
@@ -53,5 +55,8 @@ export default {
     filename: '[name].js',
   },
   plugins: [
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor',
+    // }),
   ],
 };

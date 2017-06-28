@@ -3,7 +3,7 @@ import template from './template.pug';
 import windCompass from '../wind-compass';
 import './index.scss';
 
-class WindController {
+export class WindController {
   $onChanges(deltas) {
     if (deltas.wind) {
       const w = deltas.wind.currentValue;

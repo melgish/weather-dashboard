@@ -41,7 +41,3 @@ describe('WindCompassController', () => {
     });
   });
 });
-
-describe('windCompass', () => {
-  // component
-});
