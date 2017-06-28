@@ -1,13 +1,8 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import PKG from './package';
-
-const moduleName = PKG.name.replace(/^@[^\/]*[\/]/, '');
-moduleName;
 
 export default {
-  context: path.resolve('.'),
   devtool: 'inline-source-map',
   entry: {
     middleware: 'webpack-hot-middleware/client?reload=true',
