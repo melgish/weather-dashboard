@@ -1,7 +1,7 @@
 import angular from 'angular';
 import template from './template.pug';
 
-class TemperatureController {
+export class TemperatureController {
   $onChanges(deltas) {
     if (deltas.temperature) {
       const t = deltas.temperature.currentValue;

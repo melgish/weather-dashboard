@@ -2,7 +2,7 @@ import angular from 'angular';
 import template from './template.pug';
 import weatherApi from '../api';
 
-class IconController {
+export class IconController {
   constructor($log, weather) {
     'ngInject';
     this.getIconURL = weather.getIconURL;

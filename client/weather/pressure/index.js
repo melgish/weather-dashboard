@@ -1,7 +1,7 @@
 import angular from 'angular';
 import template from './template.pug';
 
-class PressureController {
+export class PressureController {
   $onChanges(deltas) {
     if (deltas.pressure) {
       const p = deltas.pressure.currentValue;

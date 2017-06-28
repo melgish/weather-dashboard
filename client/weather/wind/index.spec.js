@@ -1,7 +1,7 @@
 import { WindController } from './index';
 
 describe('WindController', () => {
-  it('should be a funciton', () => {
+  it('should be a function', () => {
     expect(typeof WindController).toBe('function');
   });
 
@@ -16,6 +16,7 @@ describe('WindController', () => {
     const keys = ['Direction', 'Speed', 'SUnit'];
     let deltas;
     let instance;
+
     beforeEach(() => {
       instance = new WindController();
       deltas = {
@@ -28,6 +29,7 @@ describe('WindController', () => {
         } },
       };
     });
+
     describe('when called with valid wind data', () => {
       it('should update controller properties', () => {
         instance.$onChanges(deltas);
@@ -38,6 +40,7 @@ describe('WindController', () => {
         expect(instance.GUnit).toBe('kph');
       });
     });
+
     describe('when called with no wind data', () => {
       it('should not change properties', () => {
         keys.forEach(k => instance[k] = k);
@@ -45,6 +48,7 @@ describe('WindController', () => {
         keys.forEach(k => expect(instance[k]).toBe(k));
       });
     });
+
     describe('when called broken wind data', () => {
       it('should clear broken property value(s)', () => {
         keys.forEach(k => instance[k] = k);

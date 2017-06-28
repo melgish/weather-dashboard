@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "prestart": "babel-node buildScripts/startMessage",
-    "start": "run-p security-check lint:watch open:src",
+    "start": "run-p security-check lint:watch open:src test:watch",
     "lint": "esw --color tasks buildScripts",
     "lint:watch": "npm run lint -- --watch",
     "test:demo": "mocha --reporter progress buildScripts/testSetup \"client/**/*.spec.js\"",
     "test": "karma start --browsers=jsdom --single-run",
+    "test:watch": "karma start --browsers=jsdom",
     "security-check": "nsp check",
     "open:src": "babel-node buildScripts/srcServer",
     "clean:dist": "rimraf ./dist",

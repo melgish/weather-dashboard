@@ -1,7 +1,7 @@
 import { WindCompassController } from './index';
 
 describe('WindCompassController', () => {
-  it('should be a funciton', () => {
+  it('should be a function', () => {
     expect(typeof WindCompassController).toBe('function');
   });
 
