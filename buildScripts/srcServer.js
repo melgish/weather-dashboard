@@ -16,10 +16,12 @@ const port = process.env.APP_PORT || 80;
 const host = process.env.APP_HOST || 'localhost';
 const compiler = webpack(webpackConfig);
 
+
 app.use(morgan('dev'));
 // app.use(compression());
 app.use('/api', api);
 // static
+// webpack
 app.use(webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath,
   stats: {
@@ -33,6 +35,7 @@ app.use(history());
 app.listen(port, host, () => {
   console.log('Listening on', chalk.green([host, port].join(':')));
   open('http://' + host + ':' + port);
+  open('http://' + host + ':' + port + '/coverage');
 });
 
 export default app;
