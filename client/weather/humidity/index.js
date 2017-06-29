@@ -1,11 +1,11 @@
 import angular from 'angular';
 import template from './template.pug';
 
-class HumidityController {
+export class HumidityController {
   $onChanges(deltas) {
     if (deltas.humidity) {
       const p = deltas.humidity.currentValue;
-      this.Humidity = p && p;
+      this.Humidity = p;
       this.Unit = '%';
     }
   }

@@ -2,16 +2,17 @@ import angular from 'angular';
 import template from './template.pug';
 import weatherIcon from '../weather-icon';
 
-class ForecastController {
+export class ForecastController {
   $onChanges(deltas) {
     if (deltas.forecast) {
       var f = deltas.forecast.currentValue;
       this.Date = f && f.Date;
       this.Day = f && f.Day;
       this.Night = f && f.Night;
-      this.Low = f.Temperature.Minimum.Value;
-      this.High = f.Temperature.Maximum.Value;
-      this.Unit = f.Temperature.Minimum.Unit;
+      var t = f && f.Temperature;
+      this.Low = t && t.Minimum.Value;
+      this.High = t && t.Maximum.Value;
+      this.Unit = t && t.Minimum.Unit;
     }
   }
 }

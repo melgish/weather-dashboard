@@ -1,6 +1,6 @@
 /*eslint-disable no-console */
 import webpack from 'webpack';
-import webpackConfig from '../webpack.config.prd';
+import webpackConfig from '../webpack.config.prod';
 import chalk from 'chalk';
 
 process.env.NODE_ENV = 'production';

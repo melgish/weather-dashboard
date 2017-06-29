@@ -4,7 +4,7 @@ import angular from 'angular';
  * Service for fetching weather
  * @param {service} $http angular ajax service
  */
-class Weather {
+export class WeatherService {
   constructor($http) {
     'ngInject';
     this.$http = $http;
@@ -37,6 +37,6 @@ class Weather {
 
 export default angular
   .module('app.weather.api', [])
-  .service('weather', Weather)
+  .service('weather', WeatherService)
   .name;
 

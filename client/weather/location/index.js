@@ -1,7 +1,7 @@
 import angular from 'angular';
 import template from './template.pug';
 
-class LocationController {
+export class LocationController {
   $onChanges(deltas) {
     if (deltas.location) {
       const l = deltas.location.currentValue;

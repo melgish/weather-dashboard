@@ -5,7 +5,6 @@ import WebpackMd5Hash from 'webpack-md5-hash';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 export default {
-  context: path.resolve('.'),
   devtool: 'source-map',
   entry: {
     vendor: './client/vendor',
@@ -35,13 +34,6 @@ export default {
                   },
                 }],
               ],
-              env: {
-                test: {
-                  plugins: [
-                    ['istanbul', { exclude: ['src/**/*.spec.js'] }],
-                  ],
-                },
-              },
             },
           },
         ],
