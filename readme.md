@@ -1,4 +1,6 @@
-You need an accuweather api key to use this software.
+![travis](https://travis-ci.org/melgish/weather-dashboard.svg?branch=develop)
+
+Note: You need an accuweather api key to use this software.
 
 Configure via:
 ```bash
