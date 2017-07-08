@@ -31,7 +31,7 @@ export default {
                 }],
               ],
               plugins: [
-                ['istanbul', { exclude: ['**/*.spec.js'] }],
+                ['istanbul', { exclude: ['**/*.{spec,test,mock}.js'] }],
               ],
             },
           },

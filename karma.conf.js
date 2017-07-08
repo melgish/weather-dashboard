@@ -7,9 +7,7 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
     files: [
       // include main for coverage
-      'client/index.js',
-      // include spec
-      'client/**/*.spec.js'
+      'client/unit-tests.js',
     ],
     exclude: [
     ],

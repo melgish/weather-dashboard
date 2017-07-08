@@ -36,7 +36,7 @@ export default {
               env: {
                 test: {
                   plugins: [
-                    ['istanbul', { exclude: ['src/**/*.spec.js'] }],
+                    ['istanbul', { exclude: ['src/**/*.{spec,test,mock}.js'] }],
                   ],
                 },
               },
