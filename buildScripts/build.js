@@ -3,7 +3,11 @@ import webpack from 'webpack';
 import webpackConfig from '../webpack.config.prod';
 import chalk from 'chalk';
 
-process.env.NODE_ENV = 'production';
+process.env.NODE_ENV =
+  process.env.NODE_ENV || 'production';
+
+process.env.APP_APIKEY =
+  process.env.APP_APIKEY || process.env.npm_package_config_apikey;
 
 console.log(chalk.blue('Generating minified bundle...'));
 

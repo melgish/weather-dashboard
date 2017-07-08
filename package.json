@@ -4,7 +4,6 @@
   "description": "stuff",
   "main": "index.js",
   "scripts": {
-    "prestart": "babel-node buildScripts/startMessage",
     "start": "run-p lint:watch test:watch security-check open:src",
     "lint": "esw --color tasks buildScripts",
     "lint:watch": "npm run lint -- --watch",
@@ -12,8 +11,8 @@
     "test:watch": "karma start --browsers=jsdom",
     "security-check": "nsp check",
     "open:src": "babel-node buildScripts/srcServer",
-    "clean:dist": "rimraf ./dist",
-    "prebuild": "run-p clean:dist test lint",
+    "clean": "rimraf ./dist ./coverage",
+    "prebuild": "run-s clean test lint",
     "build": "babel-node buildScripts/build",
     "postbuild": "babel-node buildScripts/distServer"
   },
