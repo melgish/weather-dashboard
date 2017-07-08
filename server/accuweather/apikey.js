@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 process.env.APP_APIKEY =
   process.env.APP_APIKEY || process.env.npm_package_config_apikey;
 
