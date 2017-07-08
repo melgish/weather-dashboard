@@ -4,9 +4,8 @@ process.env.APP_APIKEY =
 const key = process.env.APP_APIKEY;
 if (!key) {
   console.error('accuweather API key not found.');
+  console.error('set APP_APIKEY environment variable or use npm config');
   console.error('npm config set @njf/weather-dashboard:apikey {key}');
   process.exit(1);
-} else {
-  console.log('apikey', key);
 }
 module.exports = key;

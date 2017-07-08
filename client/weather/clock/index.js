@@ -13,7 +13,7 @@ export class ClockController {
   }
 
   $postLink() {
-    this.ticker = this.$interval(this._update);
+    this.ticker = this.$interval(this._update.bind(this), 1000);
   }
 
   $onDestroy() {
