@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import path from 'path';
 import chalk from 'chalk';
 import express from 'express';
 import history from 'connect-history-api-fallback';
@@ -21,12 +22,16 @@ app.use(morgan('dev'));
 // app.use(compression());
 app.use('/api', api);
 // static
+app.use('/coverage',
+  express.static(path.resolve('./coverage/www')));
 // webpack
 app.use(webpackDevMiddleware(compiler, {
   publicPath: webpackConfig.output.publicPath,
+  noInfo: true,
   stats: {
-    colors: true,
-  }
+    chunks: false,
+    colors: false,
+  },
 }));
 app.use(webpackHotMiddleware(compiler, {
   path: '/__webpack_hmr',
@@ -34,8 +39,8 @@ app.use(webpackHotMiddleware(compiler, {
 app.use(history());
 app.listen(port, host, () => {
   console.log('Listening on', chalk.green([host, port].join(':')));
-  open('http://' + host + ':' + port);
   open('http://' + host + ':' + port + '/coverage');
+  open('http://' + host + ':' + port);
 });
 
 export default app;
