@@ -8,8 +8,8 @@ const compression = require('compression');
 const api = require('../server/api');
 
 const app = express();
-const port = process.env.APP_PORT || 80;
-const host = process.env.APP_HOST || 'localhost';
+const port = process.env.APP_PORT || 3000
+const host = process.env.APP_HOST || '0.0.0.0';
 const logLevel = process.env.APP_LOGLEVEL || 'tiny';
 
 if (logLevel !== 'none') {

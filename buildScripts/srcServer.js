@@ -13,12 +13,15 @@ import webpackConfig from '../webpack.config.dev';
 import api from '../server/api';
 
 const app = express();
-const port = process.env.APP_PORT || 80;
-const host = process.env.APP_HOST || 'localhost';
+const port = process.env.APP_PORT || 3000
+const host = process.env.APP_HOST || '0.0.0.0';
+const logLevel = process.env.APP_LOGLEVEL || 'dev';
+
+if (logLevel !== 'none') {
+  app.use(morgan(logLevel));
+}
 const compiler = webpack(webpackConfig);
 
-
-app.use(morgan('dev'));
 // app.use(compression());
 app.use('/api', api);
 // serve coverage results to help develop unit tests
