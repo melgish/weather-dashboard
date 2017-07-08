@@ -21,7 +21,7 @@ const compiler = webpack(webpackConfig);
 app.use(morgan('dev'));
 // app.use(compression());
 app.use('/api', api);
-// static
+// serve coverage results to help develop unit tests
 app.use('/coverage',
   express.static(path.resolve('./coverage/www')));
 // webpack
