@@ -33,13 +33,9 @@ export default {
                   },
                 }],
               ],
-              env: {
-                test: {
-                  plugins: [
-                    ['istanbul', { exclude: ['src/**/*.{spec,test,mock}.js'] }],
-                  ],
-                },
-              },
+              plugins: [
+                ['istanbul', { exclude: ['**/*.{spec,test,mock}.js'] }],
+              ],
             },
           },
         ],

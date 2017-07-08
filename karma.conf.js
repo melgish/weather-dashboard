@@ -18,7 +18,7 @@ module.exports = function(config) {
     coverageReporter: {
       dir: 'coverage',
       reporters: [
-        { type: 'text-summary' },
+        // { type: 'text-summary' },
         // { type: 'lcovonly', subdir: '.', file: 'lcov.info' },
         // { type: 'cobertura', subdir: '.', file: 'cobertura-coverage.xml' },
         { type: 'html', subdir: 'www' },
@@ -33,12 +33,14 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_WARN,
     autoWatch: true,
-    // browsers: ['jsdom'],
-    // singleRun: true,
     concurrency: Infinity,
     webpack: require('./webpack.config.test').default,
     webpackMiddleware: {
-      stats: 'errors-only',
+      noInfo: true,
+      stats: {
+        colors: false,
+        chunks: false,
+      },
     },
   })
 }
