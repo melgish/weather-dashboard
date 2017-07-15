@@ -17,4 +17,5 @@ npm config --global set @njf/weather-dashboard:apikey your-api-key-here
   + `APP_HOST` host to listen on, default `0.0.0.0`
   + `APP_PORT` port to listen on, default `3000`
   + `APP_LOGLEVEL` morgan logging level or `none` to disable logging.
-
+  + `SSL_PFX` fully qualified path to PFX file.
+  + `SSL_PASSPHRASE` password for PFX file.

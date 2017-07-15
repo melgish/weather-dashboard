@@ -15,7 +15,8 @@
     "clean": "rimraf ./dist ./coverage",
     "prebuild": "run-s clean test lint",
     "build": "babel-node buildScripts/build",
-    "build:open": "run-s build open:dist"
+    "build:open": "run-s build open:dist",
+    "server": "node server"
   },
   "author": "Nicholas J. Fiorello Jr.",
   "license": "UNLICENSED",

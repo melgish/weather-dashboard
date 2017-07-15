@@ -9,31 +9,31 @@ const api = require('../server/api');
 const fs = require('fs');
 const app = express();
 
-const port = process.env.APP_PORT || 3000
-const host = process.env.APP_HOST || '0.0.0.0';
-const logLevel = process.env.APP_LOGLEVEL || 'tiny';
+const env = require('./env');
 
-if (logLevel !== 'none') {
-  app.use(morgan(logLevel));
+if (env.logLevel !== 'none') {
+  app.use(morgan(env.logLevel));
 }
 app.use(compression());
 app.use('/api', api);
 app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 app.use(history());
 
-if (process.env.APP_SSLKEY && process.env.APP_SSLCRT) {
+if (env.pfx) {
+  // security has been configured
   const https = require('https');
   https.createServer({
-    key: fs.readFileSync(process.env.APP_SSLKEY),
-    cert: fs.readFileSync(process.env.APP_SSLCRT),
-  }, app).listen(port, host, () => {
+    pfx: fs.readFileSync(env.pfx),
+    passphrase: env.passphrase
+  }, app).listen(env.port, env.host, () => {
     console.log(chalk.green('SSL has been configured.'));
-    console.log('Listening:', chalk.green([host, port].join(':')));
+    console.log('Listening:', chalk.green([env.host, env.port].join(':')));
   });
 } else {
-  app.listen(port, host, () => {
+  // security has not been configured
+  app.listen(env.port, env.host, () => {
     console.log('WARNING:', chalk.yellow('SSL has not been configured.'));
-    console.log('Listening:', chalk.green([host, port].join(':')));
+    console.log('Listening:', chalk.green([env.host, env.port].join(':')));
   });
 }
 
