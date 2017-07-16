@@ -15,7 +15,9 @@ npm config --global set @njf/weather-dashboard:apikey your-api-key-here
 # Environment Settings
   + `APP_APIKEY` accuweather api key
   + `APP_HOST` host to listen on, default `0.0.0.0`
-  + `APP_PORT` port to listen on, default `3000`
+  + `APP_PORT` port to listen on, default `62865`
   + `APP_LOGLEVEL` morgan logging level or `none` to disable logging.
-  + `SSL_PFX` fully qualified path to PFX file.
-  + `SSL_PASSPHRASE` password for PFX file.
+
+# SSL Settings
+  + `SSL_PFX` path to PFX file containing SSL certificates
+  + `SSL_PASSPHRASE` path to file containing SSL certificate password
