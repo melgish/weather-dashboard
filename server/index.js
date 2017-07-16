@@ -5,11 +5,9 @@ const history = require('connect-history-api-fallback');
 const morgan = require('morgan');
 const path = require('path');
 const compression = require('compression');
-const api = require('../server/api');
-const fs = require('fs');
 const app = express();
-
 const env = require('./env');
+const api = require('./api');
 
 if (env.logLevel !== 'none') {
   app.use(morgan(env.logLevel));
@@ -19,13 +17,10 @@ app.use('/api', api);
 app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 app.use(history());
 
-if (env.pfx) {
+if (env.ssl) {
   // security has been configured
   const https = require('https');
-  https.createServer({
-    pfx: fs.readFileSync(env.pfx),
-    passphrase: env.passphrase
-  }, app).listen(env.port, env.host, () => {
+  https.createServer(env.ssl, app).listen(env.port, env.host, () => {
     console.log(chalk.green('SSL has been configured.'));
     console.log('Listening:', chalk.green([env.host, env.port].join(':')));
   });

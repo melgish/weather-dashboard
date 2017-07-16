@@ -1,23 +1,75 @@
+const fs = require('fs');
+
 // specifies PORT app will listen on. Default 62865
-exports.port = process.env.APP_PORT =
-  process.env.APP_PORT || process.env.npm_package_config_port || 62568;
 
-// specifies network app will listen on. Default localhost.  For all 0.0.0.0
-exports.host = process.env.APP_HOST =
-  process.env.APP_HOST || process.env.npm_package_config_host || 'localhost';
+/**
+ * Return first potential with a value
+ * @param {string[]} values array of possible values
+ */
+function firstEnv(...values) {
+  return values.find(v => undefined !== v) || undefined;
+}
 
+/**
+ * Return contents of first non-empty file
+ * @param {string[]} values array of possible file name(s)
+ */
+function firstFile(...values) {
+  return values.reduce(
+    (a, v) => a || v && fs.existsSync(v) && fs.readFileSync(v)
+  ) || undefined;
+}
+
+
+
+/**
+ * Identifies port for express to listen on
+ * default: 62568
+ */
+exports.port = firstEnv(
+    process.env.APP_PORT,
+    process.env.npm_package_config_port,
+    62568
+);
+
+/**
+ * Identifies network adapter for express to listen on
+ * default: 0.0.0.0
+ */
+exports.host = firstEnv(
+  process.env.APP_HOST,
+  process.env.npm_package_config_host,
+  '0.0.0.0'
+);
+
+/**
+ * Sets express logging level.
+ * default: tiny
+ */
 // specifies logLevel for morgan. Default 'tiny'
-exports.logLevel = process.env.APP_LOGLEVEL =
-  process.env.APP_LOGLEVEL || process.env.npm_package_config_logLevel || 'tiny';
+exports.logLevel = firstEnv(
+  process.env.APP_LOGLEVEL,
+  process.env.npm_package_config_logLevel,
+  'tiny'
+);
 
-// specifies accuweather API key. (no default)
-exports.apikey = process.env.APP_APIKEY =
-  process.env.APP_APIKEY || process.env.npm_package_config_apikey;
+/**
+ * Sets accuweather API key.
+ * default: none
+ */
+exports.apikey = firstEnv(
+  process.env.APP_APIKEY,
+  process.env.npm_package_config_apikey
+);
 
-// specifies SSL cert file. (no default)
-exports.pfx = process.env.SSL_PFX =
-  process.env.SSL_PFX || process.env.npm_package_config_ssl_pfx;
+const pfx = firstFile(
+  process.env.SSL_PFX,
+  process.env.npm_package_config_ssl_pfx
+);
 
-// specifies SSL passphrase. (no default)
-exports.passphrase = process.env.SSL_PASSPHRASE =
-  process.env.SSL_PASSPHRASE || process.env.npm_package_config_ssl_passphrase
+const passphrase = firstFile(
+  process.env.SSL_PASSPHRASE,
+  process.env.npm_package_config_ssl_passphrase
+);
+
+exports.ssl = pfx && { pfx, passphrase };

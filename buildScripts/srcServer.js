@@ -1,19 +1,17 @@
 /* eslint-disable no-console */
 import path from 'path';
-import fs from 'fs';
 import https from 'https';
 import chalk from 'chalk';
 import express from 'express';
 import history from 'connect-history-api-fallback';
 import morgan from 'morgan';
-// import compression from 'compression';
 import open from 'open';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack.config.dev';
-import api from '../server/api';
 import env from '../server/env';
+import api from '../server/api';
 
 const app = express();
 
@@ -41,12 +39,9 @@ app.use(webpackHotMiddleware(compiler, {
 }));
 app.use(history());
 
-if (env.pfx) {
+if (env.ssl) {
   // security has been configured
-  https.createServer({
-    pfx: fs.readFileSync(env.pfx),
-    passphrase: env.passphrase
-  }, app).listen(env.port, env.host, () => {
+  https.createServer(env.ssl, app).listen(env.port, env.host, () => {
     console.log(chalk.green('SSL has been configured.'));
     console.log('Listening:', chalk.green([env.host, env.port].join(':')));
     open('https://localhost:' + env.port + '/coverage');
