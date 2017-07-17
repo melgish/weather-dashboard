@@ -6,7 +6,7 @@ import chalk from 'chalk';
 process.env.NODE_ENV =
   process.env.NODE_ENV || 'production';
 
-console.log(chalk.blue('Generating minified bundle...'));
+console.log(chalk.blue('webpack'));
 
 webpack(webpackConfig).run((err, stats) => {
   if (err) {
@@ -14,17 +14,26 @@ webpack(webpackConfig).run((err, stats) => {
     return 1;
   }
 
-  const jsonStats = stats.toJson();
-  if (jsonStats.hasErrors) {
-    return jsonStats.errors.map(error => console.log(chalk.red(error)));
+  let output = stats.toString();
+  let message;
+
+  // if (stats.hasErrors()) {
+  //   stats.toJson().errors.map(error => console.error(chalk.red(error)));
+  // }
+  // if (stats.hasWarnings()) {
+  //   stats.toJson().warnings.map(warning => console.log(chalk.yellow(warning)));
+  // }
+
+  if (stats.hasErrors()) {
+    message = chalk.red('completed with errors');
+  } else if (stats.hasWarnings()) {
+    message = chalk.yellow('completed with warnings');
+  } else {
+    message = 'completed successfully';
   }
 
-  if (jsonStats.hasWarnings) {
-    return jsonStats.warnings.map(warning => console.log(chalk.yellow(warning)));
-  }
+  console.log(output);
+  console.log(message);
 
-  console.log(`Webpack stats: ${stats}`);
-  console.log(chalk.green('done'));
-
-  return 0;
+  return stats.hasErrors() ? 5 : 0;
 });
