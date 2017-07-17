@@ -55,7 +55,7 @@ export default {
   },
   output: {
     path: path.resolve('/'),
-    publicPath: '/',
+    publicPath: '',
     filename: '[name].js',
   },
   plugins: [
