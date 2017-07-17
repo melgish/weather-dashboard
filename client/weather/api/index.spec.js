@@ -52,6 +52,21 @@ describe('WeatherService', () => {
     });
   });
 
+  describe('getGeoLocation', () => {
+    it('should pass thru to $http service', done => {
+      spyOn(mockHttp, 'get').and.callThrough();
+      instance.getGeoLocation()
+        .then(data => {
+          expect(data).toBe('fred');
+          expect(mockHttp.get).toHaveBeenCalled();
+          done();
+        })
+        .catch(() => {
+          fail();
+        });
+    });
+  });
+
   describe('getConditions', () => {
     it('should pass thru to $http service', done => {
       spyOn(mockHttp, 'get').and.callThrough();

@@ -20,6 +20,12 @@ router.get('/location/:zip(\\d{5})', (req, resp) => {
     .pipe(resp);
 });
 
+router.get('/location/:lat(-?[0-9.]+),:lng(-?[0-9.]+)', (req, resp) => {
+  return weatherApi
+    .getGeoLocation(req.params.lat, req.params.lng)
+    .pipe(resp);
+});
+
 router.get('/conditions/:loc', (req, resp) => {
   return weatherApi
     .getConditions(req.params.loc)

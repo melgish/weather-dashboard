@@ -11,7 +11,11 @@ import template from './template.pug';
 export function locationResolver($transition$, weather) {
   'ngInject';
   const to = $transition$.params('to');
-  return weather.getLocation(to.zip);
+  if (to.zip) {
+    return weather.getLocation(to.zip);
+  } else {
+    return weather.getGeoLocation(to.lat, to.lng);
+  }
 }
 
 /**
@@ -52,7 +56,7 @@ export function routeConfig($stateProvider) {
       url: '/{zip:[0-9]{5}}',
     });
     $stateProvider.state('weather.geo', {
-      url: '/{lat:[0-9.]},{lng:[0-9.]}',
+      url: '/{lat:-?[0-9.]+},{lng:-?[0-9.]+}',
     });
 }
 

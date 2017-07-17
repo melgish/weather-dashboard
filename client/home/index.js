@@ -13,9 +13,8 @@ export function routeConfig($stateProvider, $urlServiceProvider) {
 }
 
 export class HomeController {
-  constructor($log, $window) {
+  constructor($window) {
     'ngInject';
-    this.$log = $log;
     this.geolocation = $window.navigator && $window.navigator.geolocation;
   }
 
@@ -25,7 +24,7 @@ export class HomeController {
 
   isInvalidGeo(lat, lng) {
     return (isNaN(lat = Number(lat)) || lat > 90 || lat < -90) ||
-           (isNaN(lng = Number(lng)) || lng > 180 || lat < 180);
+           (isNaN(lng = Number(lng)) || lng > 180 || lng < -180);
   }
 
   getGeo() {

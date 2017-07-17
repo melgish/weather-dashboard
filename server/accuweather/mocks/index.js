@@ -11,6 +11,11 @@ class MockAPI {
     return fs.createReadStream(require.resolve('./location'));
   }
 
+  getGeoLocation(lat, lng) {
+    lng;
+    return fs.createReadStream(require.resolve('./location'));
+  }
+
   /**
    * Get current conditions for supplied location
    * @param {string} locationKey accuweather location key

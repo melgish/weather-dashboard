@@ -16,6 +16,12 @@ export class WeatherService {
       .then(rs => rs.data && rs.data[0]);
   }
 
+  getGeoLocation(lat, lng) {
+    return this.$http
+      .get('api/location/' + lat + ',' + lng)
+      .then(rs => rs.data && rs.data[0]);
+  }
+
   getConditions(locationKey) {
     return this.$http
       .get('api/conditions/' + locationKey)

@@ -1,4 +1,4 @@
-import * as Dash from './index';
+import * as dash from './index';
 
 const mocks = {
   // location
@@ -11,27 +11,42 @@ const mocks = {
   },
   // weather
   getLocation: () => 1,
+  getGeoLocation: () => 1.5,
   getConditions: () => 2,
   getForecast: () => 3,
-  // $transition$
-  params: () => ({
-    zipCode: '32934'
-  }),
 };
 
 describe('Dash', () => {
   describe('locationResolver', () => {
-    it('should call weather.getLocation', () => {
+    beforeEach(() => {
       spyOn(mocks, 'getLocation').and.callThrough();
-      Dash.locationResolver(mocks, mocks);
+      spyOn(mocks, 'getGeoLocation').and.callThrough();
+    });
+
+    it('should call weather.getLocation with a zip code', () => {
+      mocks.params = () => ({
+        zip: 32934,
+      });
+      dash.locationResolver(mocks, mocks);
       expect(mocks.getLocation).toHaveBeenCalled();
+      expect(mocks.getGeoLocation).not.toHaveBeenCalled();
+    });
+
+    it('should call weather.getGeoLocation without a zip code', () => {
+      mocks.params = () => ({
+        lat: 28.13,
+        lng: -80.69,
+      });
+      dash.locationResolver(mocks, mocks);
+      expect(mocks.getLocation).not.toHaveBeenCalled();
+      expect(mocks.getGeoLocation).toHaveBeenCalled();
     });
   });
 
   describe('conditionsResolver', () => {
     it('should call weather.getConditions', () => {
       spyOn(mocks, 'getConditions');
-      Dash.conditionsResolver(mocks, mocks);
+      dash.conditionsResolver(mocks, mocks);
       expect(mocks.getConditions).toHaveBeenCalled();
     });
   });
@@ -39,16 +54,16 @@ describe('Dash', () => {
   describe('forecastResovler', () => {
     it('should call weather.getCorecast', () => {
       spyOn(mocks, 'getForecast');
-      Dash.forecastResovler(mocks, mocks);
+      dash.forecastResovler(mocks, mocks);
       expect(mocks.getForecast).toHaveBeenCalled();
     });
   });
 
   describe('routeConfig', () => {
-    it('should configure Dash routing', () => {
+    it('should configure dash routing', () => {
       spyOn(mocks, 'state');
       spyOn(mocks.rules, 'initial');
-      Dash.routeConfig(mocks);
+      dash.routeConfig(mocks);
       expect(mocks.state).toHaveBeenCalled();
     });
   });
