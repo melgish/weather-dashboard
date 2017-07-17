@@ -2,10 +2,8 @@ import { ClockController } from './index';
 
 describe('ClockController', () => {
   const mock = {};
-  mock.cleanup = () => 1;
-  mock.interval = () => {
-    return mock.cleanup;
-  };
+  mock.interval = () => 1;
+  mock.interval.cancel = () => 1;
 
   it('should be a function', () => {
     expect(typeof ClockController).toBe('function');
@@ -41,10 +39,10 @@ describe('ClockController', () => {
     });
 
     it('should stop interval process', () => {
-      spyOn(mock, 'cleanup');
+      spyOn(mock.interval, 'cancel');
       instance.$postLink();
       instance.$onDestroy();
-      expect(mock.cleanup).toHaveBeenCalled();
+      expect(mock.interval.cancel).toHaveBeenCalled();
     });
   });
 });
