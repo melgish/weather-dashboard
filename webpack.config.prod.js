@@ -40,20 +40,27 @@ export default {
       },
       {
         test: /\.pug$/,
-        exclude: /(node_modules)/,
+        exclude: /node_modules/,
         use: ['html-loader', 'pug-html-loader']
       },
       {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         exclude: /node_modules/,
-        use: ExtractTextPlugin.extract(['css-loader', 'sass-loader']),
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'sass-loader']
+        }),
+      },
+      {
+        test: /\.(eot|svg|ttf|woff2?)(\?v=\d+\.\d+\.\d+)?/,
+        use: ['file-loader?name=fonts/[name].[ext]']
       },
     ],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/',
     filename: '[name].[chunkhash].js',
+    publicPath: '',
   },
   plugins: [
     // Generate external css file with hash

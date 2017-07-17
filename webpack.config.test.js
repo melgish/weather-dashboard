@@ -43,9 +43,13 @@ export default {
         use: ['html-loader', 'pug-html-loader']
       },
       {
-        test: /\.scss$/,
+        test: /\.s?css$/,
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.(eot|svg|ttf|woff2?)(\?v=\d+\.\d+\.\d+)?/,
+        use: ['file-loader?name=fonts/[name].[ext]'],
       },
     ],
   },
