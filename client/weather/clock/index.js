@@ -17,7 +17,7 @@ export class ClockController {
   }
 
   $onDestroy() {
-    this.ticker && this.ticker();
+    this.ticker && this.$interval.cancel(this.ticker);
   }
 }
 
