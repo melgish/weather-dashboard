@@ -10,16 +10,27 @@ export class WeatherService {
     this.$http = $http;
   }
 
+  /**
+   * Get location information for zipCode
+   * @param {number|string} zipCode 5 digit zip code
+   * @return First result from location response
+   */
   getLocation(zipCode) {
     return this.$http
       .get('api/location/' + zipCode)
       .then(rs => rs.data && rs.data[0]);
   }
 
+  /**
+   * Get location information for geo coordinates
+   * @param {number} lat
+   * @param {number} lng
+   * @return location response
+   */
   getGeoLocation(lat, lng) {
     return this.$http
       .get('api/location/' + lat + ',' + lng)
-      .then(rs => rs.data && rs.data[0]);
+      .then(rs => rs.data);
   }
 
   getConditions(locationKey) {

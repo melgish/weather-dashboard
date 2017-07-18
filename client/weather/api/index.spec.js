@@ -57,7 +57,7 @@ describe('WeatherService', () => {
       spyOn(mockHttp, 'get').and.callThrough();
       instance.getGeoLocation()
         .then(data => {
-          expect(data).toBe('fred');
+          expect(data).toEqual(['fred']);
           expect(mockHttp.get).toHaveBeenCalled();
           done();
         })
