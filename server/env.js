@@ -15,12 +15,16 @@ function firstEnv(...values) {
  * @param {string[]} values array of possible file name(s)
  */
 function firstFile(...values) {
-  return values.reduce(
-    (a, v) => a || v && fs.existsSync(v) && fs.readFileSync(v)
-  ) || undefined;
+  return values.reduce((a, v) => {
+    if (!a) {
+      console.log('firstFile', v);
+      if (v && fs.existsSync(v)) {
+        a = fs.readFileSync(v);
+      }
+    }
+    return a;
+  }) || undefined;
 }
-
-
 
 /**
  * Identifies port for express to listen on
