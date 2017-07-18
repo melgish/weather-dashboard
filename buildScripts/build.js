@@ -14,8 +14,12 @@ webpack(webpackConfig).run((err, stats) => {
     return 1;
   }
 
-  let output = stats.toString();
   let message;
+  let output = stats.toString({
+    colors: true,
+    chunks: false,
+    children: false,
+  });
 
   // if (stats.hasErrors()) {
   //   stats.toJson().errors.map(error => console.error(chalk.red(error)));

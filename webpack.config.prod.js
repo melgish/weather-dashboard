@@ -3,6 +3,7 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import OptimizeCSSPlugin from 'optimize-css-assets-webpack-plugin';
 
 export default {
   devtool: 'source-map',
@@ -91,6 +92,10 @@ export default {
     }),
     // Minify JS
     new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+    }),
+    // Minify CSS
+    new OptimizeCSSPlugin({
       sourceMap: true,
     }),
   ],
