@@ -13,7 +13,7 @@ class MockAPI {
 
   getGeoLocation(lat, lng) {
     lng;
-    return fs.createReadStream(require.resolve('./location'));
+    return fs.createReadStream(require.resolve('./geolocation'));
   }
 
   /**
