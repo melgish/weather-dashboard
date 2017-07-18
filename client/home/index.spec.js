@@ -36,7 +36,7 @@ describe('Home', () => {
     describe('isInvalidZip', () => {
       let $ctrl;
       beforeEach(() => {
-        $ctrl = new Home.HomeController(mocks);
+        $ctrl = new Home.HomeController(mocks, mocks);
       });
 
       it('should return false for valid zip codes.', () => {
@@ -56,7 +56,7 @@ describe('Home', () => {
     describe('isInvalidGeo', () => {
       let $ctrl;
       beforeEach(() => {
-        $ctrl = new Home.HomeController(mocks);
+        $ctrl = new Home.HomeController(mocks, mocks);
       });
 
       it('should return false for valid Geo codes.', () => {
@@ -77,7 +77,7 @@ describe('Home', () => {
     describe('getGeo', () => {
       let $ctrl;
       beforeEach(() => {
-        $ctrl = new Home.HomeController(mocks);
+        $ctrl = new Home.HomeController(mocks, mocks);
       });
 
       it('should set geo', () => {

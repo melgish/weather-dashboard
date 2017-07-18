@@ -13,8 +13,9 @@ export function routeConfig($stateProvider, $urlServiceProvider) {
 }
 
 export class HomeController {
-  constructor($window) {
+  constructor($log, $window) {
     'ngInject';
+    this.$log = $log;
     this.geolocation = $window.navigator && $window.navigator.geolocation;
   }
 
