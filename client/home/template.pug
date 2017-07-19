@@ -1,0 +1,38 @@
+.container-fluid
+  .row
+    .col
+      .card-group
+        clock.card
+        .card.card-default
+          .card-block
+            h3.card-title.text-center Location
+            .col
+              .form-group.row
+                label Use Zip Code
+                .input-group
+                  input.form-control(
+                    type="text", ng-model="$ctrl.zip", placeholder="zip code")
+                  .input-group-btn
+                    button.btn.btn-secondary(
+                      ui-sref="weather.zip({zip:$ctrl.zip})",
+                      ng-disabled="$ctrl.isInvalidZip($ctrl.zip)")
+                      span.fa.fa-arrow-right
+                      span.sr-only Dashboard
+
+              .form-group.row(ng-if="$ctrl.geolocation")
+                label Use Location
+                .input-group
+                  .input-group-btn
+                    button.btn.btn-secondary(ng-click="$ctrl.getGeo()")
+                      span.fa.fa-location-arrow
+                      span.sr-only Get Location
+                  input.form-control.col.text-right(
+                    type="text", ng-model="$ctrl.lat", placeholder="latitude")
+                  input.form-control.col.text-right(
+                    type="text", ng-model="$ctrl.lng", placeholder="longitude")
+                  .input-group-btn
+                    button.btn.btn-secondary(
+                      ui-sref="weather.geo({lat:$ctrl.lat,lng:$ctrl.lng})"
+                      ng-disabled="$ctrl.isInvalidGeo($ctrl.lat, $ctrl.lng)")
+                      span.fa.fa-arrow-right
+                      span.sr-only Dashboard

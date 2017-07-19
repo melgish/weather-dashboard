@@ -1,0 +1,17 @@
+wind-compass {
+  svg {
+    circle {
+      fill: silver;
+      stroke: darkgray;
+    }
+    g {
+      stroke: #222;
+    }
+    .light {
+        fill: yellow;
+    }
+    .dark {
+        fill: darken(yellow, 5%);
+    }
+  }
+}

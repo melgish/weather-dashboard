@@ -1,0 +1,123 @@
+{
+  "Version": 1,
+  "Key": "332282",
+  "Type": "City",
+  "Rank": 45,
+  "LocalizedName": "Melbourne",
+  "EnglishName": "Melbourne",
+  "PrimaryPostalCode": "32901",
+  "Region": {
+    "ID": "NAM",
+    "LocalizedName": "North America",
+    "EnglishName": "North America"
+  },
+  "Country": {
+    "ID": "US",
+    "LocalizedName": "United States",
+    "EnglishName": "United States"
+  },
+  "AdministrativeArea": {
+    "ID": "FL",
+    "LocalizedName": "Florida",
+    "EnglishName": "Florida",
+    "Level": 1,
+    "LocalizedType": "State",
+    "EnglishType": "State",
+    "CountryID": "US"
+  },
+  "TimeZone": {
+    "Code": "EDT",
+    "Name": "America/New_York",
+    "GmtOffset": -4,
+    "IsDaylightSaving": true,
+    "NextOffsetChange": "2017-11-05T06:00:00Z"
+  },
+  "GeoPosition": {
+    "Latitude": 28.084,
+    "Longitude": -80.608,
+    "Elevation": {
+      "Metric": {
+        "Value": 1,
+        "Unit": "m",
+        "UnitType": 5
+      },
+      "Imperial": {
+        "Value": 3,
+        "Unit": "ft",
+        "UnitType": 0
+      }
+    }
+  },
+  "IsAlias": false,
+  "SupplementalAdminAreas": [
+    {
+      "Level": 2,
+      "LocalizedName": "Brevard",
+      "EnglishName": "Brevard"
+    }
+  ],
+  "DataSets": [
+    "Alerts",
+    "ForecastConfidence",
+    "MinuteCast"
+  ],
+  "Details": {
+    "Key": "332282",
+    "StationCode": "MLB",
+    "StationGmtOffset": -5,
+    "BandMap": "USFLS",
+    "Climo": "MLB",
+    "LocalRadar": "KMLB",
+    "MediaRegion": "SE",
+    "Metar": "KMLB",
+    "NXMetro": "MLB",
+    "NXState": "FLS",
+    "Population": 76609,
+    "PrimaryWarningCountyCode": "FLC009",
+    "PrimaryWarningZoneCode": "FLZ047",
+    "Satellite": "FLS",
+    "Synoptic": "72205",
+    "MarineStation": "MLBMAR",
+    "MarineStationGMTOffset": -5,
+    "VideoCode": "MCO",
+    "DMA": {
+      "ID": "534",
+      "EnglishName": "Orlando-Daytona Beach-Melbourne, FL"
+    },
+    "PartnerID": "12",
+    "Sources": [
+      {
+        "DataType": "Alerts",
+        "Source": "U.S. National Weather Service",
+        "SourceId": 2
+      },
+      {
+        "DataType": "CurrentConditions",
+        "Source": "AccuWeather",
+        "SourceId": 1
+      },
+      {
+        "DataType": "DailyForecast",
+        "Source": "AccuWeather",
+        "SourceId": 1
+      },
+      {
+        "DataType": "ForecastConfidence",
+        "Source": "AccuWeather",
+        "SourceId": 1
+      },
+      {
+        "DataType": "HourlyForecast",
+        "Source": "AccuWeather",
+        "SourceId": 1
+      },
+      {
+        "DataType": "MinuteCast",
+        "Source": "AccuWeather",
+        "SourceId": 1
+      }
+    ],
+    "CanonicalPostalCode": "32901",
+    "CanonicalLocationKey": "332282"
+  }
+}
