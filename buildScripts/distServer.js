@@ -19,9 +19,10 @@ app.use('/api', api);
 app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 app.use(history());
 
-if (env.ssl) {
+const ssl = env.ssl();
+if (ssl) {
   // security has been configured
-  https.createServer(env.ssl, app).listen(env.port, env.host, () => {
+  https.createServer(ssl, app).listen(env.port, env.host, () => {
     console.log(chalk.green('SSL has been configured.'));
     console.log('Listening:', chalk.green([env.host, env.port].join(':')));
   });

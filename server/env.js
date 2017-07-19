@@ -11,29 +11,13 @@ function firstEnv(...values) {
 }
 
 /**
- * Return contents of first non-empty file
- * @param {string[]} values array of possible file name(s)
- */
-function firstFile(...values) {
-  return values.reduce((a, v) => {
-    if (!a) {
-      console.log('firstFile', v);
-      if (v && fs.existsSync(v)) {
-        a = fs.readFileSync(v);
-      }
-    }
-    return a;
-  }) || undefined;
-}
-
-/**
  * Identifies port for express to listen on
- * default: 62568
+ * default: 62865
  */
 exports.port = firstEnv(
     process.env.APP_PORT,
     process.env.npm_package_config_port,
-    62568
+    62865
 );
 
 /**
@@ -66,14 +50,29 @@ exports.apikey = firstEnv(
   process.env.npm_package_config_apikey
 );
 
-const pfx = firstFile(
-  process.env.SSL_PFX,
-  process.env.npm_package_config_ssl_pfx
-);
+/**
+ * @return {Object} ssl if configured
+ */
+exports.ssl = () => {
+  let ssl;
 
-const passphrase = firstFile(
-  process.env.SSL_PASSPHRASE,
-  process.env.npm_package_config_ssl_passphrase
-);
+  const pfx = firstEnv(
+    process.env.SSL_PFX,
+    process.env.npm_package_config_ssl_pfx
+  );
 
-exports.ssl = pfx && { pfx, passphrase };
+  const secret = firstEnv(
+    process.env.SSL_SECRET,
+    process.env.npm_package_config_ssl_secret
+  );
+
+  if (pfx && fs.existsSync(pfx)) {
+    ssl = {};
+    ssl.pfx = fs.readFileSync(pfx);
+    if (secret && fs.existsSync(secret)) {
+      ssl.passphrase = fs.readFileSync(secret);
+    }
+  }
+
+  return ssl;
+};

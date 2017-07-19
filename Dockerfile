@@ -1,21 +1,25 @@
 FROM node:boron
 
-RUN mkdir -p /usr/src/weather-dashboard
+ARG WORK_DIR=/usr/src/weather-dashboard
 
-WORKDIR /usr/src/weather-dashboard
+RUN mkdir -p ${WORK_DIR}
+WORKDIR ${WORK_DIR}
 
-COPY package.json /usr/src/weather-dashboard/
-COPY dist /usr/src/weather-dashboard/dist/
-COPY server /usr/src/weather-dashboard/server/
-
+COPY package.json ${WORK_DIR}/
 ENV NODE_ENV=production
+RUN npm install --production
+
+COPY dist ${WORK_DIR}/dist/
+COPY server ${WORK_DIR}/server/
+COPY certs ${WORK_DIR}/certs/
+
 ENV APP_HOST=0.0.0.0
 ENV APP_PORT=62865
 ENV APP_LOGLEVEL=tiny
-ENV APP_APIKEY=your-key-here
+ENV APP_APIKEY=your-api-key-here
+ENV SSL_PFX=${WORK_DIR}/certs/ssl.pfx
+ENV SSL_SECRET=${WORK_DIR}/certs/ssl.secret
 
-EXPOSE 62865
+EXPOSE $APP_PORT
 
-RUN npm install --production
 CMD ["node", "server"]
-

@@ -20,4 +20,4 @@ npm config --global set @njf/weather-dashboard:apikey your-api-key-here
 
 # SSL Settings
   + `SSL_PFX` path to PFX file containing SSL certificates
-  + `SSL_PASSPHRASE` path to file containing SSL certificate password
+  + `SSL_SECRET` path to file containing SSL certificate password
