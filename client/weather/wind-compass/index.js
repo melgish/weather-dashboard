@@ -1,6 +1,6 @@
-import angular from 'angular';
-import template from './template.pug';
 import './index.scss';
+import template from './template.pug';
+import angular from 'angular';
 
 export class WindCompassController {
   constructor($log) {

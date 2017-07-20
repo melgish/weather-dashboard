@@ -1,7 +1,7 @@
-import angular from 'angular';
-import template from './template.pug';
-import windCompass from '../wind-compass';
 import './index.scss';
+import template from './template.pug';
+import angular from 'angular';
+import windCompass from '../wind-compass';
 
 export class WindController {
   $onChanges(deltas) {
