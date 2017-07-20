@@ -2,7 +2,10 @@ import { WeatherService } from './index';
 
 const mockHttp = {
   get: function() {
-    return new Promise(resolve => resolve({data: ['fred']}));
+    return new Promise(resolve => resolve({
+      data: ['fred'],
+      headers: () => '3'
+    }));
   },
 };
 

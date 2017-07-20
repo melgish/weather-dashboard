@@ -8,6 +8,26 @@ export class WeatherService {
   constructor($http) {
     'ngInject';
     this.$http = $http;
+    this.limit = '?';
+    this.remaining = '?';
+  }
+
+  /**
+   * Capture values from ratelimit-limit and ratelimit-remaining
+   * headers if found in the response
+   * @param {*} rs
+   */
+  _readLimitHeaders(rs) {
+    let h;
+    h = rs.headers('ratelimit-limit');
+    if (!isNaN(h)) {
+      this.limit = Number(h);
+    }
+    h = rs.headers('ratelimit-remaining');
+    if (!isNaN(h)) {
+      this.remaining = Number(h);
+    }
+    return rs;
   }
 
   /**
@@ -17,7 +37,7 @@ export class WeatherService {
    */
   getLocation(zipCode) {
     return this.$http
-      .get('api/location/' + zipCode)
+      .get('api/location/' + zipCode, { cache: true })
       .then(rs => rs.data && rs.data[0]);
   }
 
@@ -29,19 +49,21 @@ export class WeatherService {
    */
   getGeoLocation(lat, lng) {
     return this.$http
-      .get('api/location/' + lat + ',' + lng)
+      .get('api/location/' + lat + ',' + lng, { cache: true })
       .then(rs => rs.data);
   }
 
   getConditions(locationKey) {
     return this.$http
       .get('api/conditions/' + locationKey)
+      .then(rs => this._readLimitHeaders(rs))
       .then(rs => rs.data && rs.data[0]);
   }
 
   getForecast(locationKey) {
     return this.$http
       .get('api/forecast/' + locationKey)
+      .then(rs => this._readLimitHeaders(rs))
       .then(rs => rs.data);
   }
 
