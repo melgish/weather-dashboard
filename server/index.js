@@ -14,7 +14,9 @@ if (env.logLevel !== 'none') {
 }
 app.use(compression());
 app.use('/api', api);
-app.use(express.static(path.resolve(__dirname, '..', 'dist')));
+app.use(express.static(path.resolve(__dirname, '..', 'dist'), {
+  maxage: '365d',
+}));
 app.use(history());
 
 let ssl = env.ssl();
