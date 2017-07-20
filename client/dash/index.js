@@ -1,6 +1,7 @@
 import angular from 'angular';
 import uiRouter from '@uirouter/angularjs';
 import weather from '../weather';
+import siteNav from '../site-nav';
 import template from './template.pug';
 
 /**
@@ -45,7 +46,10 @@ export function forecastResovler(weather, location) {
 export function routeConfig($stateProvider) {
     'ngInject';
     $stateProvider.state('weather', {
-      component: 'dash',
+      views: {
+        'nav': 'siteNav',
+        '': 'dash',
+      },
       resolve: {
         location: locationResolver,
         conditions: conditionsResolver,
@@ -61,7 +65,7 @@ export function routeConfig($stateProvider) {
 }
 
 export default angular
-  .module('app.dash', [uiRouter, weather])
+  .module('app.dash', [uiRouter, weather, siteNav])
   .component('dash', {
     template: template,
     bindings: {

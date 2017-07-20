@@ -1,13 +1,16 @@
 import angular from 'angular';
-import ngCookies from 'angular-cookies';
 import uiRouter from '@uirouter/angularjs';
+import siteNav from '../site-nav';
 import template from './template.pug';
 
 export function routeConfig($stateProvider, $urlServiceProvider) {
     'ngInject';
     $stateProvider.state('home', {
       url: '/',
-      component: 'home',
+      views: {
+        'nav': 'siteNav',
+        '': 'home',
+      }
     });
     $urlServiceProvider.rules.initial({ state: 'home' });
 }
@@ -42,7 +45,7 @@ export class HomeController {
 }
 
 export default angular
-  .module('app.home', [uiRouter, ngCookies])
+  .module('app.home', [uiRouter, siteNav])
   .component('home', {
     controller: HomeController,
     template: template,
