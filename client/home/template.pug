@@ -5,33 +5,57 @@
       .card.card-default
         .card-block
           h3.card-title.text-center Location
-          .col
-            .form-group.row
+          .col(ng-model-options="{debounce: 300}")
+            ng-form.form-group.row(name="zip")
               label Use Zip Code
               .input-group
                 input.form-control(
-                  type="text", ng-model="$ctrl.zip", placeholder="zip code")
+                  type="number",
+                  placeholder="zip code",
+                  ng-model="$ctrl.zip",
+                  ng-pattern="/^[0-9]{5}$/",
+                  required)
                 .input-group-btn
                   button.btn.btn-secondary(
+                    type="button",
                     ui-sref="weather.zip({zip:$ctrl.zip})",
-                    ng-disabled="$ctrl.isInvalidZip($ctrl.zip)")
+                    ng-disabled="zip.$invalid")
                     span.fa.fa-arrow-right
                     span.sr-only Dashboard
+              small.form-text.text-muted.text-danger(ng-if="zip.$error.pattern")
+                | Zip code must be exactly 5 digits
 
-            .form-group.row(ng-if="$ctrl.geolocation")
+            ng-form.row(ng-if="$ctrl.geolocation", name="geo")
               label Use Location
               .input-group
                 .input-group-btn
-                  button.btn.btn-secondary(ng-click="$ctrl.getGeo()")
+                  button.btn.btn-secondary(type="button" ng-click="$ctrl.getGeo()")
                     span.fa.fa-location-arrow
                     span.sr-only Get Location
                 input.form-control.col.text-right(
-                  type="text", ng-model="$ctrl.lat", placeholder="latitude")
+                  type="number",
+                  placeholder="latitude"
+                  ng-model="$ctrl.lat",
+                  ng-min="-90.0",
+                  ng-max="90.0",
+                  required)
                 input.form-control.col.text-right(
-                  type="text", ng-model="$ctrl.lng", placeholder="longitude")
+                  type="number",
+                  placeholder="longitude"
+                  ng-model="$ctrl.lng",
+                  ng-min="-180.0",
+                  ng-max="180.0",
+                  required)
                 .input-group-btn
                   button.btn.btn-secondary(
-                    ui-sref="weather.geo({lat:$ctrl.lat,lng:$ctrl.lng})"
-                    ng-disabled="$ctrl.isInvalidGeo($ctrl.lat, $ctrl.lng)")
+                    type="button"
+                    ui-sref="weather.geo({lat:$ctrl.lat, lng:$ctrl.lng})"
+                    ng-disabled="geo.$invalid")
                     span.fa.fa-arrow-right
                     span.sr-only Dashboard
+              small.form-text.text-muted.text-danger(ng-if="$ctrl.alert")
+                | {{ $ctrl.alert }}
+              small.form-text.text-muted.text-danger(ng-if="geo.$error.min")
+                | Lat and Long must be greater than or equal to -90 and -180 respectively.
+              small.form-text.text-muted.text-danger(ng-if="geo.$error.max")
+                | Lat and Long must be less than or equal to 90 and 180 respectively.

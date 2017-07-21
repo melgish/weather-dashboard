@@ -33,47 +33,6 @@ describe('Home', () => {
       expect(typeof Home.HomeController).toBe('function');
     });
 
-    describe('isInvalidZip', () => {
-      let $ctrl;
-      beforeEach(() => {
-        $ctrl = new Home.HomeController(mocks, mocks);
-      });
-
-      it('should return false for valid zip codes.', () => {
-        expect($ctrl.isInvalidZip('00000')).toBeFalsy();
-        expect($ctrl.isInvalidZip('12345')).toBeFalsy();
-        expect($ctrl.isInvalidZip('54321')).toBeFalsy();
-      });
-
-      it('should return true for invalid zip codes.', () => {
-        expect($ctrl.isInvalidZip()).toBeTruthy();
-        expect($ctrl.isInvalidZip('0000O')).toBeTruthy();
-        expect($ctrl.isInvalidZip('fred')).toBeTruthy();
-        expect($ctrl.isInvalidZip('123456')).toBeTruthy();
-      });
-    });
-
-    describe('isInvalidGeo', () => {
-      let $ctrl;
-      beforeEach(() => {
-        $ctrl = new Home.HomeController(mocks, mocks);
-      });
-
-      it('should return false for valid Geo codes.', () => {
-        expect($ctrl.isInvalidGeo(0, 0)).toBeFalsy();
-        expect($ctrl.isInvalidGeo('90', '-180')).toBeFalsy();
-        expect($ctrl.isInvalidGeo(-89.9, 179.4)).toBeFalsy();
-      });
-
-      it('should return true for invalid Geo codes.', () => {
-        expect($ctrl.isInvalidGeo()).toBeTruthy();
-        expect($ctrl.isInvalidGeo('A', 0)).toBeTruthy();
-        expect($ctrl.isInvalidGeo(0, 'A')).toBeTruthy();
-        expect($ctrl.isInvalidGeo('fred')).toBeTruthy();
-        expect($ctrl.isInvalidGeo(91, 0)).toBeTruthy();
-      });
-    });
-
     describe('getGeo', () => {
       let $ctrl;
       beforeEach(() => {

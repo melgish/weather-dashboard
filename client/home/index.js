@@ -3,6 +3,11 @@ import uiRouter from '@uirouter/angularjs';
 import siteNav from '../site-nav';
 import template from './template.pug';
 
+/**
+ * Configuration for home page view
+ * @param {*} $stateProvider ui-router state services
+ * @param {*} $urlServiceProvider ui-router url services
+ */
 export function routeConfig($stateProvider, $urlServiceProvider) {
     'ngInject';
     $stateProvider.state('home', {
@@ -16,22 +21,18 @@ export function routeConfig($stateProvider, $urlServiceProvider) {
 }
 
 export class HomeController {
+  /**
+   * @param {*} $log angular logging service
+   * @param {*} $window angular $window wrapper
+   */
   constructor($log, $window) {
     'ngInject';
     this.$log = $log;
     this.geolocation = $window.navigator && $window.navigator.geolocation;
   }
 
-  isInvalidZip(zip) {
-    return !zip || !/^\d{5}$/.test(zip);
-  }
-
-  isInvalidGeo(lat, lng) {
-    return (isNaN(lat = Number(lat)) || lat > 90 || lat < -90) ||
-           (isNaN(lng = Number(lng)) || lng > 180 || lng < -180);
-  }
-
   getGeo() {
+    this.alert = null;
     this.geolocation.getCurrentPosition(pos => {
       let coords = pos && pos.coords;
       if (coords) {
@@ -40,6 +41,7 @@ export class HomeController {
       }
     }, err => {
       this.$log.error('HomeController', 'getGeo', err);
+      this.alert = 'Unable to read position.';
     });
   }
 }
