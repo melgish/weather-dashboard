@@ -36,8 +36,8 @@ export class HomeController {
     this.geolocation.getCurrentPosition(pos => {
       let coords = pos && pos.coords;
       if (coords) {
-        this.lat = pos.coords.latitude.toFixed(2);
-        this.lng = pos.coords.longitude.toFixed(2);
+        this.lat = Number(pos.coords.latitude.toFixed(2));
+        this.lng = Number(pos.coords.longitude.toFixed(2));
       }
     }, err => {
       this.$log.error('HomeController', 'getGeo', err);
