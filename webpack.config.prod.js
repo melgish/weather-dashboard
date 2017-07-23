@@ -82,6 +82,7 @@ export default {
     // Create HTML file that includes reference to bundled JS
     new HtmlWebpackPlugin({
       template: '!!pug-loader!client/index.pug',
+      title: 'Weather Dashboard',
       inject: true,
       minify: {
         removeComments: true,
