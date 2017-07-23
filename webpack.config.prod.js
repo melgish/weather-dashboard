@@ -4,6 +4,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import WebpackMd5Hash from 'webpack-md5-hash';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import OptimizeCSSPlugin from 'optimize-css-assets-webpack-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 
 export default {
   devtool: 'source-map',
@@ -49,7 +51,11 @@ export default {
         exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
+          use: [
+            'css-loader',
+            { loader: 'postcss-loader', options: { plugins: [autoprefixer] } },
+            'sass-loader'
+          ]
         }),
       },
       {
@@ -97,6 +103,25 @@ export default {
     // Minify CSS
     new OptimizeCSSPlugin({
       sourceMap: true,
+    }),
+    // site icon
+    new FaviconsWebpackPlugin({
+       logo: './client/favicon.svg',
+      emitStats: false,
+      prefix: 'icons/',
+      inject: true,
+      icons: {
+        android: false,
+        appleIcon: false,
+        appleStartup: false,
+        coast: false,
+        favicons: true,
+        firefox: false,
+        opengraph: false,
+        twitter: false,
+        yandex: false,
+        windows: false,
+      },
     }),
   ],
 };

@@ -1,6 +1,8 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 
 export default {
   devtool: 'inline-source-map',
@@ -48,7 +50,12 @@ export default {
       {
         test: /\.s?css$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        use: [
+          'style-loader',
+          'css-loader',
+          { loader: 'postcss-loader', options: { plugins: [autoprefixer] } },
+          'sass-loader'
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff2?)(\?v=\d+\.\d+\.\d+)?/,
@@ -69,5 +76,23 @@ export default {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new FaviconsWebpackPlugin({
+      logo: './client/favicon.svg',
+      emitStats: false,
+      prefix: 'icons/',
+      inject: true,
+      icons: {
+        android: false,
+        appleIcon: false,
+        appleStartup: false,
+        coast: false,
+        favicons: true,
+        firefox: false,
+        opengraph: false,
+        twitter: false,
+        yandex: false,
+        windows: false,
+      },
+    }),
   ],
 };
