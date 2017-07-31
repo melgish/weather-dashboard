@@ -88,11 +88,11 @@ class AccuweatherAPI {
    */
   _updateStats(response) {
     let h;
-    h = response.headers('ratelimit-limit');
+    h = response.headers['ratelimit-limit'];
     if (!isNaN(h)) {
       this._stats.limit = Number(h);
     }
-    h = response.headers('ratelimit-remaining');
+    h = response.headers['ratelimit-remaining'];
     if (!isNaN(h)) {
       this._stats.remaining = Number(h);
     }
