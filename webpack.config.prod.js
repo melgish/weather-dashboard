@@ -107,7 +107,8 @@ export default {
     }),
     // site icon
     new FaviconsWebpackPlugin({
-       logo: './client/favicon.svg',
+      logo: './client/favicon.svg',
+      title: 'Weather Dashboard',
       emitStats: false,
       prefix: 'icons/',
       inject: true,
