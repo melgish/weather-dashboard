@@ -38,5 +38,14 @@ router.get('/forecast/:loc', (req, resp) => {
     .pipe(resp);
 });
 
+router.get('/stats', (req, resp) => {
+  // set same headers that weather api would
+  const stats = weatherApi.getStats();
+  resp.set({
+    'ratelimit-limit': stats.limit,
+    'ratelimit-remaining': stats.remaining,
+  });
+  return resp.json(stats);
+});
 
 module.exports = router;

@@ -72,6 +72,13 @@ export class WeatherService {
       return 'api/icon/' + Number(icon);
     }
   }
+
+  getStats() {
+    return this.$http
+      .get('api/stats')
+      .then(rs => this._readLimitHeaders(rs))
+      .then(rs => rs.data);
+  }
 }
 
 export default angular

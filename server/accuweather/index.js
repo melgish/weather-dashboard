@@ -7,6 +7,14 @@ class AccuweatherAPI {
   constructor(host, apikey) {
     this.apikey = apikey;
     this.host = host;
+
+    /**
+     * @private
+     */
+    this._stats = {
+      limit: 0,
+      remaining: 0
+    };
   }
 
   /**
@@ -23,7 +31,7 @@ class AccuweatherAPI {
         details: true,
         q: zipCode,
       },
-    });
+    }).on('response', response => this._updateStats(response));
   }
 
   /**
@@ -41,7 +49,7 @@ class AccuweatherAPI {
         toplevel: true,
         q: [lat, lng].join(','),
       },
-    });
+    }).on('response', response => this._updateStats(response));
   }
 
   /**
@@ -56,7 +64,7 @@ class AccuweatherAPI {
         language: 'en-us',
         details: true,
       },
-    });
+    }).on('response', response => this._updateStats(response));
   }
 
   /**
@@ -72,7 +80,27 @@ class AccuweatherAPI {
         details: true,
         metric: false,
       },
-    })
+    }).on('response', response => this._updateStats(response));
+  }
+
+  /**
+   * @private
+   */
+  _updateStats(response) {
+    let h;
+    h = response.headers('ratelimit-limit');
+    if (!isNaN(h)) {
+      this._stats.limit = Number(h);
+    }
+    h = response.headers('ratelimit-remaining');
+    if (!isNaN(h)) {
+      this._stats.remaining = Number(h);
+    }
+    return response;
+  }
+
+  getStats() {
+    return this._stats;
   }
 }
 
