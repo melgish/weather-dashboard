@@ -1,6 +1,12 @@
-nav.navbar.bg-inverse.navbar-inverse
-  .row.text-white
-    .col
+nav.navbar.navbar-inverse.bg-inverse
+  .row
+    .col-9
       a.navbar-brand.py-0(ui-sref="home") Dashboard
-    .col.text-right
-      span(ng-bind="$ctrl.limits")
+    .col-3.text-right.dropdown(ng-class="{show:$ctrl.show}")
+      button.btn.btn-info.btn-sm(type="button" ng-click="$ctrl.show=!$ctrl.show")
+          span.fa.fa-question-circle-o
+      .dropdown-menu.w-100.py-2.px-2.bg-info
+        stats.card.card-secondary(ng-if="$ctrl.show")
+
+
+

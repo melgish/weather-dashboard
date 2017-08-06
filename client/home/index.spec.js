@@ -1,48 +1,57 @@
 import * as Home from './index';
 
-const mocks = {
-  state: () => 4,
-  rules: {
-    initial: () => 5
-  },
-  navigator: {
-    geolocation: {
-      getCurrentPosition: pos => pos({
-        coords: {
-          latitude: 28.12345,
-          longitude: 80.54321,
-        },
-      }),
-    },
-  },
-};
-
-describe('Home', () => {
+describe('Home', function() {
   describe('routeConfig', () => {
     it('should configure home routing', () => {
-      spyOn(mocks, 'state');
-      spyOn(mocks.rules, 'initial');
-      Home.routeConfig(mocks, mocks);
-      expect(mocks.state).toHaveBeenCalled();
-      expect(mocks.rules.initial).toHaveBeenCalled();
+      this.state = jasmine.createSpy().and.callFake(() => this.state);
+      this.initial = jasmine.createSpy();
+      this.rules = this;
+      Home.routeConfig(this, this);
+      expect(this.state).toHaveBeenCalled();
+      expect(this.initial).toHaveBeenCalled();
     });
   });
 
   describe('HomeController', () => {
-    it('should be a constructor', () => {
-      expect(typeof Home.HomeController).toBe('function');
+    let $ctrl;
+    beforeEach(() => {
+      this.current = { coords: { latitude: 28, longitude: -80 } };
+      this.navigator = this;
+      this.geolocation = this;
+      this.fake = (pos, err) => this.current ? pos(this.current) : err('error');
+      this.getCurrentPosition = jasmine.createSpy().and.callFake(this.fake);
+      this.error = jasmine.createSpy();
+      $ctrl = new Home.HomeController(this, this);
+    });
+
+    it('should initialize members', () => {
+      expect($ctrl.$log).toBe(this);
+      expect($ctrl.geolocation).toBe(this);
     });
 
     describe('getGeo', () => {
-      let $ctrl;
-      beforeEach(() => {
-        $ctrl = new Home.HomeController(mocks, mocks);
-      });
-
-      it('should set geo', () => {
+      it('should set geo on successful call', () => {
         $ctrl.getGeo();
         expect($ctrl.lat).toBeDefined();
         expect($ctrl.lng).toBeDefined();
+        expect($ctrl.alert).toBeFalsy();
+        expect(this.error).not.toHaveBeenCalled();
+      });
+
+      it('should log error on failure', () => {
+        this.current = null;
+        $ctrl.getGeo();
+        expect($ctrl.alert).toBeTruthy();
+        expect(this.error).toHaveBeenCalled();
+      });
+
+      it('should not update on invalid results', () => {
+        this.current.coords = null;
+        $ctrl.getGeo();
+        expect($ctrl.lat).not.toBeDefined();
+        expect($ctrl.lng).not.toBeDefined();
+        expect($ctrl.alert).toBeFalsy();
+        expect(this.error).not.toHaveBeenCalled();
       });
     });
   });

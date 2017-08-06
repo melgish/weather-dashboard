@@ -1,0 +1,10 @@
+.card-header.py-1
+ .row Stats
+table.table.table-sm.my-0
+  tbody
+    tr
+      th.w-75.py-2 Remaining
+      td.w-25.py-2.text-right {{ $ctrl.remaining || 0}}
+    tr
+      th.w-75.py-2 Limit
+      td.w-25.py-2.text-right {{ $ctrl.limit || 0 }}

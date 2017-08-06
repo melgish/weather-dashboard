@@ -99,4 +99,19 @@ describe('WeatherService', () => {
         });
     });
   });
+
+  describe('getStats', () => {
+    it('should pass thru to $http service', done => {
+      spyOn(mockHttp, 'get').and.callThrough();
+      instance.getStats()
+        .then(data => {
+          expect(data).toEqual(['fred']);
+          expect(mockHttp.get).toHaveBeenCalled();
+          done();
+        })
+        .catch(() => {
+          fail();
+        });
+    });
+  });
 });

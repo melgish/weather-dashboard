@@ -4,7 +4,6 @@ import https from 'https';
 import chalk from 'chalk';
 import express from 'express';
 import history from 'connect-history-api-fallback';
-import morgan from 'morgan';
 import open from 'open';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
@@ -14,10 +13,6 @@ import env from '../server/env';
 import api from '../server/api';
 
 const app = express();
-
-if (env.logLevel !== 'none') {
-  app.use(morgan(env.logLevel));
-}
 const compiler = webpack(webpackConfig);
 
 // app.use(compression());
