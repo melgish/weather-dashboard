@@ -1,7 +1,7 @@
 thermometer {
   svg {
     g.meter {
-      fill: #eee;
+      fill: #ccc;
       stroke: #222;
       stroke-width: 1;
       path.hg {
@@ -21,7 +21,7 @@ thermometer {
       }
       text {
         fill: #eee;
-        font-size: 8pt;
+        font-size: 10pt;
       }
     }
   }
