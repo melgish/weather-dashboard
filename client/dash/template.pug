@@ -12,14 +12,14 @@
 .row
   .col
     .card-group
+      temperature.card.card-inverse.card-primary(
+        temperature="$ctrl.conditions.Temperature"
+      )
       pressure.card.card-inverse.card-warning(
         pressure="$ctrl.conditions.Pressure"
       )
       humidity.card.card-inverse.card-danger(
         humidity="$ctrl.conditions.RelativeHumidity"
-      )
-      temperature.card.card-inverse.card-primary(
-        temperature="$ctrl.conditions.Temperature"
       )
 .row
   .col
