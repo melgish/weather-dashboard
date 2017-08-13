@@ -1,5 +1,7 @@
+import './index.scss';
 import angular from 'angular';
 import template from './template.pug';
+import thermometer from '../thermometer';
 
 export class TemperatureController {
   $onChanges(deltas) {
@@ -12,7 +14,7 @@ export class TemperatureController {
 }
 
 export default angular
-  .module('app.temperature', [])
+  .module('app.temperature', [thermometer])
   .component('temperature', {
     template: template,
     controller: TemperatureController,

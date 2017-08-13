@@ -1,0 +1,11 @@
+svg(
+  viewbox="0 0 100 100",
+  preserveAspectRatio="xMidYMid")
+  g.meter
+    path(d="M42 12  L42 72  A15,15 0 1,0 58 72  L58 12  A8,8 0 0,0 42 12")
+    path.hg(ng-attr-d="M42 {{ $ctrl.y }}  L42 72  A15,15 0 1,0 58 72  L58 {{ $ctrl.y }}")
+    path.hi(d="M46 12  L46 74  A16,13 0 0,0 40 85")
+  g.scale
+    path(d="M62 15 L70 15  M62 27.5 L66 27.5  M62 40 L70 40  M62 52.5 L66 52.5  M62 65 L70 65")
+    text(x=72 y=19) {{ $ctrl.High }}&deg;
+    text(x=72 y=69) {{ $ctrl.Low }}&deg;

@@ -1,3 +1,6 @@
-.card-block.text-center
-  h3.card-title Temperature
-  h1 {{ $ctrl.Temp }} &deg;{{ $ctrl.Unit }}
+.card-block
+  .row
+    .col-sm-8.text-center
+      h3.card-title Temperature
+      h1.py-0 {{ $ctrl.Temp }} &deg;{{ $ctrl.Unit }}
+    thermometer.col-sm-4(temperature="$ctrl.Temp")

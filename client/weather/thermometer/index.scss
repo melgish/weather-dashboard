@@ -1,0 +1,28 @@
+thermometer {
+  svg {
+    g.meter {
+      fill: #eee;
+      stroke: #222;
+      stroke-width: 1;
+      path.hg {
+        fill: #f22;
+      }
+      path.hi {
+        fill: none;
+        stroke: #eee;
+        opacity: .7;
+      }
+    }
+    g.scale {
+      path {
+        fill: none;
+        stroke: #eee;
+        stroke-width: 1
+      }
+      text {
+        fill: #eee;
+        font-size: 8pt;
+      }
+    }
+  }
+}
