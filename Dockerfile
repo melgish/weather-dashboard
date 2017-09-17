@@ -5,7 +5,8 @@ ARG WORK_DIR=/usr/src/weather-dashboard
 RUN mkdir -p ${WORK_DIR}
 WORKDIR ${WORK_DIR}
 
-COPY package.json ${WORK_DIR}/
+COPY package*.json ${WORK_DIR}/
+
 ENV NODE_ENV=production
 RUN npm install --production
 

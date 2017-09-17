@@ -17,7 +17,7 @@ function pcp(files, target, options) {
 console.log(chalk.blue('copying files'));
 Promise.all([
   pcp(
-    ['dist*/**/*.*', 'server*/**/*.*', 'package.json', 'Dockerfile'],
+    ['dist*/**/*.*', 'server*/**/*.*', 'package*.json', 'Dockerfile'],
     path.resolve('deploy'),
     { cwd: path.resolve('.') }
   ),
