@@ -17,7 +17,7 @@ export class WeatherService {
    */
   getLocation(zipCode) {
     return this.$http
-      .get('api/location/' + zipCode, { cache: true })
+      .get('api/location/' + zipCode, { cache: true, })
       .then(rs => rs.data && rs.data[0]);
   }
 

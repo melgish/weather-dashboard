@@ -2,23 +2,23 @@
   .col
     .card-group
       clock.card
-      location.card.card-inverse.card-success(
+      location.card.text-white.bg-success(
           location="$ctrl.location"
       )
-      wind.card.card-inverse.card-info(
+      wind.card.text-white.bg-info(
         wind="$ctrl.conditions.Wind",
         gusts="$ctrl.conditions.WindGust"
       )
 .row
   .col
     .card-group
-      temperature.card.card-inverse.card-primary(
+      temperature.card.text-white.bg-primary(
         temperature="$ctrl.conditions.Temperature"
       )
-      pressure.card.card-inverse.card-warning(
+      pressure.card.text-white.bg-warning(
         pressure="$ctrl.conditions.Pressure"
       )
-      humidity.card.card-inverse.card-danger(
+      humidity.card.text-white.bg-danger(
         humidity="$ctrl.conditions.RelativeHumidity"
       )
 .row

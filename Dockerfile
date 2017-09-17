@@ -1,4 +1,4 @@
-FROM node:boron
+FROM node:latest
 
 ARG WORK_DIR=/usr/src/weather-dashboard
 
