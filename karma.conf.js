@@ -24,22 +24,24 @@ module.exports = function(config) {
         { type: 'html', subdir: 'www' },
       ],
     },
-    jsdomLauncher: {
-      jsdom: {
-        userAgent: 'jsdom',
-      },
-    },
-    port: 9876,
-    colors: true,
     logLevel: config.LOG_WARN,
-    autoWatch: true,
-    concurrency: Infinity,
     webpack: require('./webpack.config.test').default,
     webpackMiddleware: {
       noInfo: true,
       stats: {
         colors: false,
         chunks: false,
+      },
+    },
+    browsers: ['Headless'],
+    singleRun: true,
+    customLaunchers: {
+      Headless: {
+        base: 'ChromeHeadless',
+        displayName: 'Headless',
+        flags: [
+          '--no-sandbox',
+        ],
       },
     },
   })

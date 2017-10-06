@@ -17,8 +17,8 @@
     "prebuild": "run-s clean test lint",
     "security-check": "nsp check",
     "start": "run-p lint:watch test:watch security-check open:src",
-    "test": "karma start --browsers=jsdom --single-run",
-    "test:watch": "karma start --browsers=jsdom"
+    "test": "karma start --no-color",
+    "test:watch": "karma start --no-single-run"
   },
   "author": "Nicholas J. Fiorello Jr.",
   "license": "UNLICENSED",
@@ -89,12 +89,10 @@
     "html-loader": "^0.5.1",
     "html-webpack-plugin": "^2.28.0",
     "jasmine-core": "^2.8.0",
-    "jsdom": "^11.2.0",
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.1.0",
-    "karma-jsdom-launcher": "^6.1.2",
     "karma-webpack": "^2.0.3",
     "ng-annotate-loader": "^0.6.1",
     "node-sass": "^4.5.3",
