@@ -1,5 +1,7 @@
+import './index.scss';
 import angular from 'angular';
 import template from './template.pug';
+import analogClock from '../analog-clock';
 
 export class ClockController {
   constructor($interval) {
@@ -22,7 +24,7 @@ export class ClockController {
 }
 
 export default angular
-  .module('app.clock', [])
+  .module('app.clock', [analogClock])
   .component('clock', {
     template: template,
     controller: ClockController,

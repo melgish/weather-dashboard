@@ -1,0 +1,40 @@
+
+$second-color: red;
+$minute-color: green;
+$hour-color: blue;
+
+analog-clock {
+  svg {
+    .dial {
+      .tick {
+        stroke: black;
+        stroke-width: 1;
+      }
+    }
+    .hands {
+      .second {
+        stroke: $second-color;
+        stroke-width: 1;
+      }
+      .minute {
+        stroke: $minute-color;
+        stroke-width: 2;
+      }
+      .hour {
+        stroke: $hour-color;
+        stroke-width: 3;
+      }
+    }
+    marker {
+      .second {
+        fill: $second-color;
+      }
+      .minute {
+        fill: $minute-color;
+      }
+      .hour {
+        fill: $hour-color;
+      }
+    }
+  }
+}
