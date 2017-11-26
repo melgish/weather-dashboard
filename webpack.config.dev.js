@@ -7,9 +7,8 @@ import autoprefixer from 'autoprefixer';
 export default {
   devtool: 'inline-source-map',
   entry: {
-    middleware: 'webpack-hot-middleware/client?reload=true',
-    // vendor: './client/vendor',
-    main: './client/index',
+    vendor: './client/vendor',
+    main: [ 'webpack-hot-middleware/client?reload=true', './client/index'],
   },
   module: {
     rules: [
@@ -36,7 +35,7 @@ export default {
                 }],
               ],
               plugins: [
-                ['istanbul', { exclude: ['**/*.{spec,test,mock}.js'] }],
+                // ['istanbul', { exclude: ['**/*.{spec,test,mock}.js'] }],
               ],
             },
           },
@@ -69,6 +68,11 @@ export default {
     filename: '[name].js',
   },
   plugins: [
+    // Use CommonsChunkPlugin to create a separate bundle of vendor
+    // libraries so that they are cached separately.
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+    }),
     // Create HTML file that includes reference to bundled JS
     new HtmlWebpackPlugin({
       template: '!!pug-loader!client/index.pug',
