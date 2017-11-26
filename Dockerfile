@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:carbon-alpine
 
 ARG WORK_DIR=/usr/src/weather-dashboard
 
@@ -16,7 +16,7 @@ WORKDIR ${WORK_DIR}
 
 COPY . ${WORK_DIR}/
 
-RUN npm install --production
+RUN npm install --no-save --production
 
 EXPOSE $APP_PORT
 
