@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const request = require('request');
 const fs = require('fs');
 for (let i = 9; i < 10; i++) {
@@ -7,6 +8,8 @@ for (let i = 9; i < 10; i++) {
 
   request
     .get(url)
-    .on('error', err => { })
+    .on('error', err => {
+      console.log(err);
+     })
     .pipe(fs.createWriteStream(file));
 }
