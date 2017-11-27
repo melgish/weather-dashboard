@@ -22,7 +22,7 @@ app.use('/coverage',
   express.static(path.resolve('./coverage/www')));
 // webpack
 app.use(webpackDevMiddleware(compiler, {
-  publicPath: webpackConfig.output.publicPath,
+  publicPath: compiler.options.output.publicPath,
   noInfo: true,
   stats: {
     chunks: false,
