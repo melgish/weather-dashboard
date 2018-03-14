@@ -1,7 +1,4 @@
 .card-body
   .row
-    .col-md-8.text-center
-      h3.card-title Temperature
-      h1.py-0 {{ $ctrl.Temp }} &deg;{{ $ctrl.Unit }}
-    .col-6.offset-3.col-md-4.offset-md-0
+    .col
       thermometer(temperature="$ctrl.Temp")

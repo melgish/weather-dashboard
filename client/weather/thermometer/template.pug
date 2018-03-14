@@ -1,10 +1,73 @@
-svg(
-  viewbox="0 0 100 100")
-  g.meter
-    path(d="M42 12  L42 72  A15,15 0 1,0 58 72  L58 12  A8,8 0 0,0 42 12")
-    path.hg(ng-attr-d="M42 {{ $ctrl.y }}  L42 72  A15,15 0 1,0 58 72  L58 {{ $ctrl.y }}")
-    path.hi(d="M46 12  L46 74  A16,13 0 0,0 40 85")
-  g.scale
-    path(d="M62 15 L70 15  M62 27.5 L66 27.5  M62 40 L70 40  M62 52.5 L66 52.5  M62 65 L70 65")
-    text(x=72 y=19) {{ $ctrl.High }}&deg;
-    text(x=72 y=69) {{ $ctrl.Low }}&deg;
+svg(viewbox="0 0 100 100")
+  defs
+    linearGradient#grad2(x1="0",y1="1",x2="1",y2="0")
+      stop(offset="0%", stop-color="#888")
+      stop(offset="50%", stop-color="#def")
+      stop(offset="100%", stop-color="#888")
+
+    filter#innerShadow(x0="-50%", y0="-50%" width="200%" height="200%")
+      feGaussianBlur(in="SourceAlpha", stdDeviation="2", result="blur")
+      feOffset(dx=3,dy=2)
+      feComposite(in2="SourceAlpha", operator="arithmetic", k2=-1, k3=1, result="shadowDiff")
+      
+      feFlood(flood-color="#444", flood-opacity=.75)
+      feComposite(in2="shadowDiff", operator="in")
+      feComposite(in2="SourceGraphic", operator="over", result="firstFilter")
+
+      feGaussianBlur(in="firstFilter", stdDeviation="2", result="blur2")
+      feOffset(dx=-3,dy=-2)
+      feComposite(in2="firstFilter", operator="arithmetic", k2=-1, k3=1, result="shadowDiff")
+      
+      feFlood(flood-color="#444", flood-opacity=.75)
+      feComposite(in2="shadowDiff", operator="in")
+      feComposite(in2="firstFilter", operator="over")
+
+    filter#dropShadow(width="150%", height="150%")
+      feOffset(in="SourceAlpha", result="offOut", dx="1" dy="1")
+      feGaussianBlur(in="offOut", result="blurOut", stdDeviation="1")
+      feBlend(in="SourceGraphic", in2="blurOut", mode="normal")
+
+    radialGradient#glass(cx=-15, cy=-10, r=65, gradientUnits="userSpaceOnUse")
+      stop(offset="0%", stop-color="white" stop-opacity=".75")
+      stop(offset="25%", stop-color="silver" stop-opacity=".2")
+      stop(offset="100%", stop-color="white" stop-opacity="0")
+
+    circle#dial(r=47)
+    circle#face(r=43)
+    rect#lcd(x=-19, y=18, width=40, height=16, rx=3, ry=3)
+    
+    g#needle
+      circle(r=4)
+      path(d="M-3 0 L-.75 -37 L.25 -37 L3 0")
+      circle(r=.75, fill="black")
+
+    line#tic(y1=-39, y2=-35, stroke-width=".8", stroke="black")
+    line#toc(y1=-39, y2=-37, stroke-width=".6", stroke="black")
+    g#ticks
+      use(href="#tic")
+      use(href="#toc", transform="rotate(2.5)")
+      use(href="#toc", transform="rotate(5)")
+      use(href="#toc", transform="rotate(7.5)")
+      use(href="#toc", transform="rotate(10)")
+
+  g(transform="translate(50,50)", filter="url(#dropShadow)", font-size="6", text-anchor="middle")
+    use(href="#dial", fill="url(#grad2)")
+    use(href="#face", fill="white" fill-opacity=".5" filter="url(#innerShadow)")
+    use(href="#lcd", fill="#def" filter="url(#innerShadow)")
+    text(y=12, alignment-baseline="middle") Temperature
+    text(y=27, font-family="tahoma" alignment-baseline="middle" font-size="8.8") {{$ctrl.temperature | number:1}} F
+    g
+      - var y = -29;
+      - var t = -30;
+        while t < 150
+          - var r = t * 1.25 - 75;
+          g(transform="rotate(" + r + ")")
+            use(href="#ticks")
+            if !(t % 30)
+              text(y=y, transform="rotate(" + -r + " 0 " + y + ")" alignment-baseline="middle")= t
+          - t = t + 10;
+      g(transform="rotate(" + (150 * 1.25 - 75) + ")")
+        use(href="#tic")
+        text(y=y, transform="rotate(" + -(150 * 1.25 - 75) + " 0 " + y + ")" alignment-baseline="middle")= 150
+    use(href="#needle", fill="#e00", filter="url(#dropShadow)" ng-attr-transform="rotate({{$ctrl.temperature * 1.25 - 75}})")
+    use(href="#face" fill="url(#glass)")

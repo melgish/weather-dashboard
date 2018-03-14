@@ -1,5 +1,8 @@
 temperature {
   thermometer {
     margin: -.1in 0 -.1in 0;
+    svg {
+      max-height: 200px;
+    }
   }
 }
