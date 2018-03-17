@@ -1,8 +1,4 @@
 .card-body.text-center
   .row
-    .col-8
-      h3.card-title Time
-      h5 {{ $ctrl.now | date }}
-      h5 {{ $ctrl.now | date: 'mediumTime' }}
-    .col-4
+    .col
       analog-clock(time="$ctrl.now")

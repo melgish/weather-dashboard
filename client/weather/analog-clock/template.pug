@@ -1,28 +1,32 @@
-//- - var hands = [{ c: 'minute', y: 16 }, { c: 'hour', y: 28 }, { c: 'second', y: 12 } ];
-- var numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-svg(viewBox="0 0 100 100", preserveAspectRatio="xMidYMid")
-  //- defs
-    each h in hands
-     marker(id=h.c + '-arrow', markerWidth="4", markerHeight="4", refX=2, refY=2, orient="auto", markerUnits="strokeWidth")
-      path(d="M0 0 L0 4 L4 2z", class=h.c)
-  g.dial(font-size=10)
-    circle(cx=50, cy=50, r=46, fill="none", stroke="black" stroke-width=".25")
-    circle(cx=50, cy=50, r=44, fill="none", stroke="black" stroke-width=".25")
-    - for (i = 0; i < 360; i = i + 6)
-      - if (i % 30)
-        line.tick(x1=50, y1=4, x2=50, y2=6, transform="rotate(" + (i) + " 50 50)")
-    each t in numbers
-      g.tick(transform="rotate(" + (t * 30) + " 50 50)")
-        line.tick(x1=50, y1=4, x2=50, y2=9)
-        text(x=50, y=16, transform="rotate(" + (t * -30) + " 50 16)", text-anchor="middle" alignment-baseline="middle")= t
-
-  g.hands(stroke="black", stroke-width=.25)
-    //- each h in hands
-    //-   line(class=h.c, x1=50, y1=50, x2=50, y2=h.y, ng-attr-transform="rotate({{$ctrl." + h.c + "}} 50 50)", marker-end="url(#" + h.c + "-arrow)")
-    g(fill="#33C", ng-attr-transform="rotate({{$ctrl.minute}} 50 50)")
-      path(d="M 50 14 L48 40  A14 14 0 0 1 45 45  A14 14 0 0 1 45 58  A6 8 0 0 0 55 58  A14 14 0 0 1 55 45 A14 14 0 0 1 52 40 z")
-    g(fill="#3C3", ng-attr-transform="rotate({{$ctrl.hour}} 50 50)")
-      path(d="M 50 25 L48 40  A14 14 0 0 1 45 45  A14 14 0 0 1 45 55  A6 8 0 0 0 55 55  A14 14 0 0 1 55 45 A14 14 0 0 1 52 40 z")
-    g(fill="#C33", ng-attr-transform="rotate({{$ctrl.second}} 50 50)")
-      path(d="M 50 8 L49 46 A4 5 0 1 0 51 46 z")
-    circle(cx=50, cy=50, r=1.25, fill="white", stroke="black" stroke-width=.25)
+svg(viewBox="0 0 100 100")
+  defs
+    include ../shared/gauge-defs.pug
+    path#minute(d="M3 0 A3,3 1 1 1 -3 0 L-.8 -36 h.8z")
+    path#hour(d="M3 0 A3,3 1 1 1 -3 0 L-.6 -26 h.6z")
+    path#second(d="M1 0 A1.25,1.25 1 1 1 -1 0 L-.4 -42 h.4z", fill="red")
+  g(transform="translate(50,50)"
+    font-family="tahoma",
+    dominant-baseline="middle",
+    text-anchor="middle",
+    font-size="6")
+    use(href="#dial")
+    use(href="#face")
+    //- numbers
+    g
+      //- 44 is edge of face
+      - var y = (-36);
+      - for(i = 1; i < 13; i++)
+        - var r = i * 30;
+        g(transform="rotate(" + r + ")")
+          use(href="#tic")
+          text(y=y, transform="rotate(-" + r +" 0 " + y + ")")= i
+    //- lcd
+    g(transform="translate(0 16)")
+      use(href="#lcd")
+      text(font-size="9" y=1) {{ $ctrl.time | date: 'dd-MMM' }}
+    //- hands
+    g(stroke="#777", stroke-width=".1", filter="url(#dropShadow)")
+      use(href="#hour", data-ng-attr-transform="rotate({{$ctrl.hour}})")
+      use(href="#minute", data-ng-attr-transform="rotate({{$ctrl.minute}})")
+      use(href="#second", data-ng-attr-transform="rotate({{$ctrl.second}})")
+    use(href="#crystal")

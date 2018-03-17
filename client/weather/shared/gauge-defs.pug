@@ -1,0 +1,42 @@
+linearGradient#metalicGradient(x1="0",y1="1",x2="1",y2="0")
+  stop(offset="0%", stop-color="#888")
+  stop(offset="50%", stop-color="#def")
+  stop(offset="100%", stop-color="#888")
+
+filter#innerShadow(x0="-50%", y0="-50%" width="125%" height="125%")
+  feGaussianBlur(in="SourceAlpha", stdDeviation="2", result="blur")
+  feOffset(dx=3,dy=2)
+  feComposite(in2="SourceAlpha", operator="arithmetic", k2=-1, k3=1, result="shadowDiff")
+
+  feFlood(flood-color="#444", flood-opacity=.75)
+  feComposite(in2="shadowDiff", operator="in")
+  feComposite(in2="SourceGraphic", operator="over", result="firstFilter")
+
+  feGaussianBlur(in="firstFilter", stdDeviation="2", result="blur2")
+  feOffset(dx=-3,dy=-2)
+  feComposite(in2="firstFilter", operator="arithmetic", k2=-1, k3=1, result="shadowDiff")
+
+  feFlood(flood-color="#444", flood-opacity=.75)
+  feComposite(in2="shadowDiff", operator="in")
+  feComposite(in2="firstFilter", operator="over")
+
+filter#dropShadow(width="150%", height="150%")
+  feOffset(in="SourceAlpha", result="offOut", dx="1" dy="1")
+  feGaussianBlur(in="offOut", result="blurOut", stdDeviation="1")
+  feBlend(in="SourceGraphic", in2="blurOut", mode="normal")
+
+radialGradient#glass(cx=-15, cy=-10, r=64, gradientUnits="userSpaceOnUse")
+  stop(offset="0%", stop-color="white" stop-opacity=".75")
+  stop(offset="25%", stop-color="silver" stop-opacity=".2")
+  stop(offset="100%", stop-color="white" stop-opacity="0")
+
+circle#dial(r=48, fill="url(#metalicGradient", filter="url(#dropShadow)")
+circle#face(r=44, fill="white", fill-opacity=".5", filter="url(#innerShadow)")
+circle#crystal(r=44, fill="url(#glass)" opacity=".4" stroke="black" stroke-width=".25")
+
+//- long mark
+line#tic(y1=-44, y2=-40, stroke-width=".8", stroke="black")
+//- short mark
+line#toc(y1=-44, y2=-41, stroke-width=".6", stroke="black")
+
+rect#lcd(x=-20, y=-7, width=40, height=14, rx=3, ry=3, fill="#def" filter="url(#innerShadow)")

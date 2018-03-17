@@ -1,3 +1,4 @@
+import './index.scss';
 import angular from 'angular';
 import api from './api';
 import wind from './wind';
