@@ -6,7 +6,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import OptimizeCSSPlugin from 'optimize-css-assets-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import autoprefixer from 'autoprefixer';
-
+import InterpolateLoaderOptionsPlugin from 'interpolate-loader-options-webpack-plugin';
 export default {
   devtool: 'source-map',
   entry: {
@@ -17,7 +17,7 @@ export default {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        include: /client/,
         use: [
           {
             loader: 'ng-annotate-loader',
@@ -43,12 +43,34 @@ export default {
       },
       {
         test: /\.pug$/,
-        exclude: /node_modules/,
-        use: ['html-loader', 'pug-html-loader']
+        include: /client/,
+        oneOf: [
+          {
+            resourceQuery: /svg/,
+            use: [
+              'raw-loader',
+              {
+                loader: 'svgo-loader',
+                options: {
+                  plugins: [
+                    // must match InterpolateLoaderOptionsPlugin path
+                    // plugins.0.cleanupIDs.prefix
+                    { cleanupIDs: { prefix: 'p-[hash:base64]-' } },
+                    { removeViewBox: false },
+                  ],
+                },
+              },
+              'pug-html-loader',
+            ],
+          },
+          {
+            use: ['html-loader', 'pug-html-loader']
+          }
+        ]
       },
       {
         test: /\.s?css$/,
-        exclude: /node_modules/,
+        include: /client/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -60,25 +82,36 @@ export default {
       },
       {
         test: /\.(eot|svg|ttf|woff2?)(\?v=\d+\.\d+\.\d+)?/,
-        use: ['file-loader?name=fonts/[name].[ext]']
+        include: [/client/, /font-awesome/],
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: 'fonts/[name].[ext]',
+          },
+        },
       },
     ],
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].[chunkhash].js',
     publicPath: '',
+    filename: '[name].[chunkhash].js',
   },
   plugins: [
-    // Generate external css file with hash
-    new ExtractTextPlugin('[name].[contenthash].css'),
-    // Hash files using Md5 so names change when content changes.
-    new WebpackMd5Hash(),
+    new InterpolateLoaderOptionsPlugin({
+      loaders: [
+        { name: 'svgo-loader', include: ['plugins.0.cleanupIDs.prefix'] }
+      ],
+    }),
     // Use CommonsChunkPlugin to create a separate bundle of vendor
     // libraries so that they are cached separately.
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
     }),
+    // Hash files using Md5 so names change when content changes.
+    new WebpackMd5Hash(),
+    // Generate external css file with hash
+    new ExtractTextPlugin('[name].[contenthash].css'),
     // Create HTML file that includes reference to bundled JS
     new HtmlWebpackPlugin({
       template: '!!pug-loader!client/index.pug',
@@ -118,7 +151,7 @@ export default {
         appleStartup: false,
         coast: false,
         favicons: true,
-        firefox: false,
+        firefox: true,
         opengraph: false,
         twitter: false,
         yandex: false,

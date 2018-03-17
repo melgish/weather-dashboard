@@ -3,18 +3,19 @@ import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import autoprefixer from 'autoprefixer';
+import InterpolateLoaderOptionsPlugin from 'interpolate-loader-options-webpack-plugin';
 
 export default {
   devtool: 'inline-source-map',
   entry: {
     vendor: './client/vendor',
-    main: [ 'webpack-hot-middleware/client?reload=true', './client/index'],
+    main: ['webpack-hot-middleware/client?reload=true', './client/index'],
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        include: /client/,
         use: [
           {
             loader: 'ng-annotate-loader',
@@ -34,21 +35,40 @@ export default {
                   },
                 }],
               ],
-              plugins: [
-                // ['istanbul', { exclude: ['**/*.{spec,test,mock}.js'] }],
-              ],
             },
           },
         ],
       },
       {
         test: /\.pug$/,
-        exclude: /(node_modules)/,
-        use: ['html-loader', 'pug-html-loader']
+        include: /client/,
+        oneOf: [
+          {
+            resourceQuery: /svg/,
+            use: [
+              'raw-loader',
+              {
+                loader: 'svgo-loader',
+                options: {
+                  plugins: [
+                    // must match InterpolateLoaderOptionsPlugin path
+                    // plugins.0.cleanupIDs.prefix
+                    { cleanupIDs: { prefix: 'p-[hash:base64]-' } },
+                    { removeViewBox: false },
+                  ],
+                },
+              },
+              'pug-html-loader',
+            ],
+          },
+          {
+            use: ['html-loader', 'pug-html-loader']
+          }
+        ]
       },
       {
         test: /\.s?css$/,
-        exclude: /node_modules/,
+        include: /client/,
         use: [
           'style-loader',
           'css-loader',
@@ -58,7 +78,13 @@ export default {
       },
       {
         test: /\.(eot|svg|ttf|woff2?)(\?v=\d+\.\d+\.\d+)?/,
-        use: ['file-loader?name=fonts/[name].[ext]'],
+        include: [/client/, /font-awesome/],
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: 'fonts/[name].[ext]',
+          },
+        },
       },
     ],
   },
@@ -68,6 +94,11 @@ export default {
     filename: '[name].js',
   },
   plugins: [
+    new InterpolateLoaderOptionsPlugin({
+      loaders: [
+        { name: 'svgo-loader', include: ['plugins.0.cleanupIDs.prefix'] }
+      ],
+    }),
     // Use CommonsChunkPlugin to create a separate bundle of vendor
     // libraries so that they are cached separately.
     new webpack.optimize.CommonsChunkPlugin({
@@ -92,7 +123,7 @@ export default {
         appleStartup: false,
         coast: false,
         favicons: true,
-        firefox: false,
+        firefox: true,
         opengraph: false,
         twitter: false,
         yandex: false,
