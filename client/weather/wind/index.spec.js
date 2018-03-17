@@ -33,7 +33,7 @@ describe('WindController', () => {
     describe('when called with valid wind data', () => {
       it('should update controller properties', () => {
         instance.$onChanges(deltas);
-        expect(instance.Direction).toBe('NE');
+        expect(instance.Direction).toBe(45);
         expect(instance.Speed).toBe(50);
         expect(instance.SUnit).toBe('mph');
         expect(instance.Gusts).toBe(100);

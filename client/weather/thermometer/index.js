@@ -1,5 +1,5 @@
-import './index.scss';
-import template from './template.pug';
+// eslint-disable-next-line import/no-unresolved
+import template from './template.pug?svg';
 import angular from 'angular';
 
 /**

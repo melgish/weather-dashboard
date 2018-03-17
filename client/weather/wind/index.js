@@ -7,7 +7,7 @@ export class WindController {
   $onChanges(deltas) {
     if (deltas.wind) {
       const w = deltas.wind.currentValue;
-      this.Direction = w && w.Direction.Localized;
+      this.Direction = w && w.Direction.Degrees;
       this.Speed = w && w.Speed.Imperial.Value;
       this.SUnit = w && w.Speed.Imperial.Unit;
     }

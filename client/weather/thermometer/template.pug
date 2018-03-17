@@ -1,4 +1,4 @@
-svg(viewbox="0 0 100 100")
+svg(viewBox="0 0 100 100")
   defs
     linearGradient#grad2(x1="0",y1="1",x2="1",y2="0")
       stop(offset="0%", stop-color="#888")
@@ -69,5 +69,5 @@ svg(viewbox="0 0 100 100")
       g(transform="rotate(" + (150 * 1.25 - 75) + ")")
         use(href="#tic")
         text(y=y, transform="rotate(" + -(150 * 1.25 - 75) + " 0 " + y + ")" alignment-baseline="middle")= 150
-    use(href="#needle", fill="#e00", filter="url(#dropShadow)" ng-attr-transform="rotate({{$ctrl.temperature * 1.25 - 75}})")
+    use(href="#needle", fill="#e00", filter="url(#dropShadow)" data-ng-attr-transform="rotate({{$ctrl.temperature * 1.25 - 75}})")
     use(href="#face" fill="url(#glass)")

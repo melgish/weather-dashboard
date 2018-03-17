@@ -1,5 +1,5 @@
-import './index.scss';
-import template from './template.pug';
+// eslint-disable-next-line
+import template from './template.pug?svg';
 import angular from 'angular';
 
 export class WindCompassController {
@@ -22,7 +22,9 @@ export default angular
     template: template,
     controller: WindCompassController,
     bindings: {
-      wind: '<',
+      direction: '<',
+      speed: '<',
+      unit: '<',
     }
   })
   .name;

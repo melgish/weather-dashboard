@@ -1,15 +1,4 @@
-.card-body.text-center
+.card-body
   .row
-    .col-md-8.text-center
-      h3.card-title Wind
-      .row
-        .col Direction
-        .col {{ $ctrl.Direction }}
-      .row
-        .col Speed
-        .col {{ $ctrl.Speed }} {{ $ctrl.SUnit }}
-      .row
-        .col Gusts
-        .col {{ $ctrl.Gusts }} {{ $ctrl.GUnit }}
-    .col-6.offset-3.col-md-4.offset-md-0
-      wind-compass(wind="$ctrl.wind")
+    .col 
+      wind-compass(direction="$ctrl.Direction", speed="$ctrl.Speed" units="$ctrl.SUnit")
