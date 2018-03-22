@@ -1,6 +1,7 @@
 import './index.scss';
 import angular from 'angular';
-import template from './template.pug';
+// eslint-disable-next-line import/no-unresolved
+import template from './template.pug?svg';
 import analogClock from '../analog-clock';
 
 export class ClockController {
